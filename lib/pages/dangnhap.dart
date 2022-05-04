@@ -35,13 +35,14 @@ class _DangNhapState extends State<DangNhap> {
           ),
           Container(
             child: SafeArea(
-              child: ListView(
-                children: <Widget>[
-                  textSection(),
-                  buttonSection(),
-                ],
-              ),
-            ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                textSection(),
+                buttonSection(),
+              ],
+            )),
           ),
         ],
       ),
@@ -104,7 +105,7 @@ class _DangNhapState extends State<DangNhap> {
   final TextEditingController passwordController = new TextEditingController();
   Container textSection() {
     return Container(
-      padding: EdgeInsets.only(right: 60, left: 60, top: 300),
+      padding: EdgeInsets.symmetric(horizontal: 60),
       margin: const EdgeInsets.all(10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -133,7 +134,7 @@ class _DangNhapState extends State<DangNhap> {
 
   Container buttonSection() {
     return Container(
-      padding: EdgeInsets.only(right: 60, left: 60),
+      padding: EdgeInsets.symmetric(horizontal: 60),
       margin: const EdgeInsets.all(10),
       child: ElevatedButton(
         child: const Text('Đăng nhập'),
