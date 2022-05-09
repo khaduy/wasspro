@@ -70,7 +70,8 @@ class _DaThuState extends State<DaThu> {
                             onPressed: () {
                               route(index);
                             },
-                            child: Column(
+                            child: 
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(

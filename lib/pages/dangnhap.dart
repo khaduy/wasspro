@@ -36,8 +36,8 @@ class _DangNhapState extends State<DangNhap> {
           Container(
             child: SafeArea(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 textSection(),
                 buttonSection(),
@@ -57,10 +57,10 @@ class _DangNhapState extends State<DangNhap> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        "k": "a29c79a210968550fe54fe8d86fd27dd",
-        "tk": "a29c79a210968550fe54fe8d86fd27dd",
-        "mand": 'anbinh.nv01',
-        "pass": "123456aA@"
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Token": "a29c79a210968550fe54fe8d86fd27dd",
+        "MaND": "anbinh.nv01",
+        "Pass": "123456aA@"
       }),
     );
     if (response.statusCode == 200) {

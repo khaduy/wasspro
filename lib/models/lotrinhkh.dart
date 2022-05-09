@@ -14,9 +14,10 @@ Future<List<LoTrinhKH>> fetchLoTrinhKH() async {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        "k": "a29c79a210968550fe54fe8d86fd27dd",
-        "tk": "a29c79a210968550fe54fe8d86fd27dd",
-        "nvid": '48',
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Token": "a29c79a210968550fe54fe8d86fd27dd",
+        "NhanVienID": '48',
+        "UserToken": "765edf44ac1a6730cc0f38b42fcb1926"
       }),
     );
 

@@ -54,22 +54,35 @@ class _GhiChiSoState extends State<GhiChiSo> {
   int dathu = 0;
   Future<List<LoTrinhGhiData>> fetchLoTrinhGhiData(num? chiNhanhID,
       num? nhanVienID, num? loTrinhID, String token, int index) async {
-    String ltid = loTrinhID.toString();
-    List<String> parts1 = ltid.split('.');
-    String nvid = nhanVienID.toString();
-    List<String> parts2 = nvid.split('.');
-    String cnid = chiNhanhID.toString();
-    List<String> parts3 = cnid.split('.');
-    var response = await http.get(Uri.parse(
-        'http://api.vnptcantho.com.vn/wp-qnh/api/DSKhachHangGhi?chinhanhid=${parts3[0]}&nvid=${parts2[0]}&lotrinhid=${parts1[0]}&token=765edf44ac1a6730cc0f38b42fcb1926'));
+    print(loTrinhID);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final response = await http.post(
+      Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getDSKhachHangGhi'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Token": "a29c79a210968550fe54fe8d86fd27dd",
+        "NhanVienID": '48',
+        "ChiNhanhID": "9",
+        "LoTrinhID": '96',
+        "UserToken": "765edf44ac1a6730cc0f38b42fcb1926"
+      }),
+    );
+
     slghi = 0;
     chghi = 0;
     daghi = 0;
     chthu = 0;
     dathu = 0;
     if (response.statusCode == 200) {
-      if (response.body != 'null') {
-        List jsonResponse = await jsonDecode(response.body);
+      if (jsonDecode(response.body)["message"] == "Success") {
+        print(loTrinhID);
+        List jsonResponse = await jsonDecode(response.body)["data"];
+        String respString1 = await jsonEncode(jsonResponse);
+        prefs.setString("dskhghi", respString1);
         setState(() {
           this.j = index;
           slghi = jsonResponse.length;
@@ -88,7 +101,6 @@ class _GhiChiSoState extends State<GhiChiSo> {
             }
           }
         });
-
         return jsonResponse
             .map((data) => LoTrinhGhiData.fromJson(data))
             .toList();
@@ -190,7 +202,9 @@ class _GhiChiSoState extends State<GhiChiSo> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/dsghi');
+                                  },
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

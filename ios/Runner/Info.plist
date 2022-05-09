@@ -4,6 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Text Camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Text Micro</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleDisplayName</key>
 	<string>Wasspro</string>
 	<key>CFBundleExecutable</key>

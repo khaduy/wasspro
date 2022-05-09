@@ -28,8 +28,6 @@ class _ThongTinKhachHangState extends State<ThongTinKhachHang> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List jsonResponse = await jsonDecode(prefs.getString("dskh") ?? "");
     var respJson1 = await jsonEncode(jsonResponse[index2.index.value]);
-    // print(index2.index.value);
-    print(respJson1);
     return DSKHThu.fromJson(jsonDecode(respJson1));
   }
 

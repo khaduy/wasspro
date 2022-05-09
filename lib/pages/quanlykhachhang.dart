@@ -9,7 +9,6 @@ import 'package:wasspro/models/dangnhap_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/lotrinhkh.dart';
-// import '../models/lotrinhthu_data.dart';
 
 class QLKhachHang extends StatefulWidget {
   const QLKhachHang({Key? key}) : super(key: key);
@@ -42,7 +41,6 @@ class _QLKhachHangState extends State<QLKhachHang> {
       maND = jsonResult['ma_nd'];
       token = jsonResult['token'];
     });
-    // print('dangnhap: ${hoTenNV}');
   }
 
   @override
