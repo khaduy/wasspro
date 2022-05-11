@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'package:get/get.dart';
+import 'package:image/image.dart' as imgs;
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wasspro/main.dart';
@@ -11,10 +15,16 @@ import 'package:wasspro/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
+import 'package:wasspro/pages/print_pages/alert.dart';
+import 'package:wasspro/pages/print_pages/blue_print.dart';
+import 'package:wasspro/pages/print_pages/convert_tiensangchu.dart';
+import 'package:wasspro/pages/print_pages/printing_widget.dart';
+import 'package:wasspro/pages/print_pages/utils.dart';
+import 'package:wasspro/pages/print_pages/widget_to_image.dart';
 import 'package:wasspro/pages/sub1_pages/sub2.pages/camera.dart';
 
 class TTKH_DaGhi extends StatefulWidget {
-  const TTKH_DaGhi({Key? key}) : super(key: key);
+  const TTKH_DaGhi({Key key}) : super(key: key);
   @override
   State<TTKH_DaGhi> createState() => _TTKH_DaGhiState();
 }
@@ -29,34 +39,44 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
 
   var thutienapp;
   List empList = [];
-  Future<List>? futureDSKHGhi;
+  Future<List> futureDSKHGhi;
   Future<List> getData() async {
     await getStatus();
+    await getNoiDung();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List jsonResponse = await jsonDecode(prefs.getString("dskhghi") ?? "");
-    int mtt1 = jsonResponse
+    var jsonRes = jsonResponse
         .where((e) => e["MaDanhBo"].toString() == ctrl.MaKH.value.toString())
-        .toList()[0]["LuongTieuThu"];
+        .toList()[0];
+    print(jsonRes);
+    mtt1 = jsonRes["LuongTieuThu"];
     changedText(mtt1);
-    thutienapp = jsonResponse
-        .where((e) => e["MaDanhBo"].toString() == ctrl.MaKH.value.toString())
-        .toList()[0]["ThuTien_app"];
-    return Future.delayed(const Duration(milliseconds: 50), () {
+    thutienapp = jsonRes["ThuTien_app"];
+    KY = jsonRes["KyGhiID"];
+    KY = KY.substring(4, 6) + "/" + KY.substring(0, 4);
+    DANH_BO = jsonRes["MaDanhBo"];
+    TEN_KH = jsonRes["HoTenKH"];
+    DIACHI = jsonRes["DiaChiKH"];
+    SDT = jsonRes["SDT"];
+    NGAYGHI = datetime.format(DateTime.parse(jsonRes["NgayGhi"]));
+    CSC = jsonRes["ChiSoCu"];
+    CSM = jsonRes["ChiSoMoi"];
+    return Future.delayed(const Duration(milliseconds: 100), () {
       return jsonResponse
           .where((e) => e["MaDanhBo"].toString() == ctrl.MaKH.value.toString())
           .toList();
     });
   }
 
-  File? imageFile;
+  File imageFile;
   void _getFromCamera() async {
-    XFile? pickedFile = await ImagePicker().pickImage(
+    XFile pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
       maxHeight: 1080,
       maxWidth: 1080,
     );
     setState(() {
-      imageFile = File(pickedFile!.path);
+      imageFile = File(pickedFile.path);
     });
   }
 
@@ -97,6 +117,31 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
     });
     return Future.delayed(const Duration(seconds: 0), () {
       return jsonResponse;
+    });
+  }
+
+  var TENCTY, DIACHICTY, HOTLINE;
+  var KY, TIME, ID_KH, TEN_KH;
+  var DIACHI, DANH_BO, SDT;
+  var NGAYGHI, CSC, CSM, mtt1;
+  var hoTenNV, sdtNV;
+  Future<void> getNoiDung() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString("dangnhap") == null) {
+      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+    }
+    print((prefs.getString('dangnhap') ?? ""));
+    setState(() {
+      DateTime now = DateTime.now();
+      String formattedDate = DateFormat('dd/MM/yyyy kk:mm:ss').format(now);
+      String result = (prefs.getString('dangnhap') ?? "");
+      var jsonResult = json.decode(result);
+      TENCTY = jsonResult["tenCTY"];
+      DIACHICTY = jsonResult['DC_CTY'];
+      HOTLINE = jsonResult['SDT_CTY'];
+      TIME = formattedDate;
+      hoTenNV = jsonResult["HoTenNV"];
+      sdtNV = jsonResult["SDT"];
     });
   }
 
@@ -178,10 +223,102 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
     });
   }
 
+  // CHUC NANG IN
+  GlobalKey key1;
+  GlobalKey key2;
+  Uint8List bytes1;
+  Uint8List bytes2;
+  BluetoothDevice dv;
+  BluetoothDevice dvInfo;
+  final _alertDialogBase = AlertDialogBase();
+  List<ScanResult> scanResult;
+  void HamIn() async {
+    print('ID thiet bi: ${ctrl.deviceID}');
+    flutterBlue.startScan(timeout: const Duration(seconds: 1));
+    flutterBlue.scanResults.listen((result) {
+      setState(() {
+        dvInfo = result
+            .where((e) => e.device.id.toString() == ctrl.deviceID.toString())
+            .toList()[0]
+            .device;
+      });
+      print(dvInfo);
+    });
+    flutterBlue.stopScan();
+    showHoaDon();
+    // _alertDialogBase.showDialogThongBao(context, "Vui lòng cài đặt máy in");
+  }
+
+  Future<void> showHoaDon() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Thông báo'),
+            content: SingleChildScrollView(
+              child: SizedBox(
+                  width: 280,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      WidgetToImage(builder: (key) {
+                        key1 = key;
+                        return noiDungGB();
+                      }),
+                      SizedBox(height: 50),
+                      WidgetToImage(builder: (key) {
+                        key2 = key;
+                        return noiDungBN();
+                      }),
+                    ],
+                  )),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Giấy báo'),
+                onPressed: () async {
+                  bytes1 = await Utils.capture(key1);
+                  printWithDevice(bytes1);
+                },
+              ),
+              TextButton(
+                child: const Text('Biên nhận'),
+                onPressed: () async {
+                  bytes2 = await Utils.capture(key2);
+                  printWithDevice(bytes2);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  void printWithDevice(Uint8List bytess) async {
+    print('bat dau');
+    await print("thiet bi: ${dvInfo}");
+    final img = imgs.decodeImage(bytess);
+    var thumbnail = imgs.copyResize(img, width: 320);
+    await dvInfo.connect();
+    final gen = Generator(PaperSize.mm58, await CapabilityProfile.load());
+    final printer = BluePrint();
+    printer.add(gen.feed(3));
+    printer.add(gen.image(thumbnail));
+    printer.add(gen.feed(3));
+    await printer.printData(dvInfo);
+    await dvInfo.disconnect();
+    print('ket thuc');
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print('3');
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -192,10 +329,10 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/hoadon')
-                    .whenComplete(() => null);
+                HamIn();
               },
-              child: Image.asset("assets/icon_sync.png"),
+              child: Image.asset("assets/icon_print.png"),
+              // child: Icon(Icons.print),
             ),
           ),
         ],
@@ -206,7 +343,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
           future: futureDSKHGhi,
           builder: (ctx, dskh) {
             if (dskh.hasData) {
-              empList = dskh.data!;
+              empList = dskh.data;
               return ListView.builder(
                   itemCount: empList.length,
                   itemBuilder: (ctx, i) {
@@ -239,8 +376,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                             child: Container(
                                               child: TextFormField(
                                                 enabled: false,
-                                                initialValue:
-                                                    '${empList[i]["KyGhiID"]}',
+                                                initialValue: '${KY}',
                                               ),
                                             ),
                                           )
@@ -1818,8 +1954,8 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 ? SizedBox(
                                                     height: 500,
                                                     child: Container(
-                                                      child: Image.file(
-                                                          imageFile!),
+                                                      child:
+                                                          Image.file(imageFile),
                                                     ),
                                                   )
                                                 : Container(child: Text(''))
@@ -1830,7 +1966,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                   ],
                                 ),
                               ),
-                              // SELECT BOX
+                              // SELECT BOX TRANG THAI
                               Text(
                                 'Trạng thái',
                                 style: TextStyle(
@@ -1842,7 +1978,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                     return DropdownMenuItem(
                                       child: Container(
                                         child: Text(item["NoiDung"]),
-                                        width: 500,
+                                        width: size.width * 70 / 100,
                                       ),
                                       value: item["GhiChuID"],
                                     );
@@ -1890,5 +2026,2135 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
         ),
       ),
     ));
+  }
+
+  Column noiDungGB() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              '${TENCTY}',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              '${DIACHICTY}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Hotline: ${HOTLINE}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                'GIẤY BÁO TIỀN ĐIỆN NƯỚC KỲ ${KY}',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Text(
+              '(Không có giá trị thu tiền)',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Ngày ${TIME}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                'MÃ KH: ${DANH_BO}',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
+            Text(
+              'Tên KH: ${TEN_KH}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'Địa chỉ: ${DIACHI}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'SĐT: ${SDT}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'Ngày ghi: ${NGAYGHI}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+          ],
+        ),
+        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'CS Cũ',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          'CS Mới',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          'M3TT',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        '${CSC}',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${CSM}',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${mtt1}',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'M3',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Đơn Giá',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Thành tiền',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Column(
+          children: [
+            if (truonghop == 1) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '0',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '0',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '0',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else if (truonghop == 2) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg1)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else if (truonghop == 3) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg1)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg2)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else if (truonghop == 4) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg1)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg2)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_3}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg3)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_3}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else if (truonghop == 5) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg1)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg2)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_3}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg3)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_3}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_4}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              child: Container(
+                                  child: Text(
+                                '${money.format(dg4)}',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                              )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              child: Container(
+                                  child: Text(
+                                '${tt_4}',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                              )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else ...[
+              Text(''),
+            ],
+          ],
+        ),
+        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Tiền nước:',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Thuế TN(5%):',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Phí nước thải:',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Chỉ số mới',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Thuế NT(10%):',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Phí môi trường:',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${tienNuoc ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${thueTN ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${thueBao ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${thueBao ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${thueBao ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${thueBao ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Tổng tiền',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        '${tongTien ?? ""}',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                'Bằng chữ: ${ConvertTienSangChu.Convert_NumtoText(double.parse(tongTien).toInt().toString())}',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
+            Text(
+              'Có khoán thêm: 0 m3',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+            Text('Quý khách thanh toán tại văn phòng Công ty',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                )),
+            Text(
+              'Nộp chậm sẽ bị phạt Nộp chậm theo quy định. Nếu không thanh toán buộc lòng chúng tôi phải ngưng cấp nước theo quy định.',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'NV: ${hoTenNV}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'SĐT: ${sdtNV}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'Link: http://nuocsachhaugiang.com.vn',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                'Cảm ơn Quý khách hàng!',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Column noiDungBN() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              '${TENCTY}',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              '${DIACHICTY}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Hotline: ${HOTLINE}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                'BIÊN NHẬN THANH TOÁN TIỀN NƯỚC KỲ ${KY}',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Text(
+              'Ngày ${TIME}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                'MÃ KH: ${DANH_BO}',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
+            Text(
+              'Tên KH: ${TEN_KH}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'Địa chỉ: ${DIACHI}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'SĐT: ${SDT}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'Ngày ghi: ${NGAYGHI}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+          ],
+        ),
+        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'CS Cũ',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          'CS Mới',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          'M3TT',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        '${CSC}',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${CSM}',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${mtt1}',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'M3',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Đơn Giá',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Thành tiền',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Column(
+          children: [
+            if (truonghop == 1) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '0',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '0',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '0',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else if (truonghop == 2) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg1)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else if (truonghop == 3) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg1)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg2)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else if (truonghop == 4) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg1)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg2)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_3}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg3)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_3}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else if (truonghop == 5) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg1)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_1}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg2)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_2}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_3}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${money.format(dg3)}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${tt_3}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Container(
+                                child: Text(
+                              '${m3_4}',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              child: Container(
+                                  child: Text(
+                                '${money.format(dg4)}',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                              )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              child: Container(
+                                  child: Text(
+                                '${tt_4}',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                              )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else ...[
+              Text(''),
+            ],
+          ],
+        ),
+        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Tiền nước:',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Thuế TN(5%):',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Phí nước thải:',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Chỉ số mới',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Thuế NT(10%):',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Phí môi trường:',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${tienNuoc ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${thueTN ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${thueBao ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${thueBao ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${thueBao ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                      SizedBox(
+                        child: Container(
+                            child: Text(
+                          '${thueBao ?? ""}',
+                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        'Tổng tiền',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                          child: Text(
+                        '${tongTien ?? ""}',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                'Bằng chữ: ${ConvertTienSangChu.Convert_NumtoText(double.parse(tongTien).toInt().toString())}',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
+            Text(
+              'Có khoán thêm: 0 m3',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'NV: ${hoTenNV}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'SĐT: ${sdtNV}',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Text(
+              'Link: http://nuocsachhaugiang.com.vn',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                'Cảm ơn Quý khách hàng!',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

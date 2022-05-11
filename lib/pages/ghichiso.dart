@@ -12,7 +12,7 @@ import '../models/lotrinhghi.dart';
 import '../models/lotrinhghi_data.dart';
 
 class GhiChiSo extends StatefulWidget {
-  const GhiChiSo({Key? key}) : super(key: key);
+  const GhiChiSo({Key key}) : super(key: key);
   @override
   State<GhiChiSo> createState() => _GhiChiSoState();
 }
@@ -43,20 +43,18 @@ class _GhiChiSoState extends State<GhiChiSo> {
     });
   }
 
-  Future<List<LoTrinhGhi>>? futureLoTrinhGhi;
+  Future<List<LoTrinhGhi>> futureLoTrinhGhi;
 
-  Future<List<LoTrinhGhiData>>? futureLoTrinhGhiData;
+  Future<List<LoTrinhGhiData>> futureLoTrinhGhiData;
   int j = -1;
   int slghi = 0;
   int chghi = 0;
   int daghi = 0;
   int chthu = 0;
   int dathu = 0;
-  Future<List<LoTrinhGhiData>> fetchLoTrinhGhiData(num? chiNhanhID,
-      num? nhanVienID, num? loTrinhID, String token, int index) async {
-    print(loTrinhID);
+  Future<List<LoTrinhGhiData>> fetchLoTrinhGhiData(num chiNhanhID,
+      num nhanVienID, num loTrinhID, String token, int index) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     final response = await http.post(
       Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getDSKhachHangGhi'),
       headers: <String, String>{
@@ -71,7 +69,7 @@ class _GhiChiSoState extends State<GhiChiSo> {
         "UserToken": "765edf44ac1a6730cc0f38b42fcb1926"
       }),
     );
-
+    // print(loTrinhID);
     slghi = 0;
     chghi = 0;
     daghi = 0;
@@ -142,9 +140,9 @@ class _GhiChiSoState extends State<GhiChiSo> {
                 future: futureLoTrinhGhi,
                 builder: (context, ltg) {
                   if (ltg.hasData) {
-                    List<LoTrinhGhi>? data = ltg.data;
+                    List<LoTrinhGhi> data = ltg.data;
                     return ListView.builder(
-                      itemCount: data!.length,
+                      itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Record(
                             data,
@@ -172,8 +170,8 @@ class _GhiChiSoState extends State<GhiChiSo> {
     );
   }
 
-  Container Record(List<LoTrinhGhi> data, int index, num? chiNhanhID,
-      num? nhanVienID, num? loTrinhID, String? token) {
+  Container Record(List<LoTrinhGhi> data, int index, num chiNhanhID,
+      num nhanVienID, num loTrinhID, String token) {
     Size size = MediaQuery.of(context).size;
     return Container(
         child: Column(
@@ -185,13 +183,13 @@ class _GhiChiSoState extends State<GhiChiSo> {
               future: futureLoTrinhGhiData,
               builder: (context, ltgdata) {
                 if (ltgdata.hasData) {
-                  List<LoTrinhGhiData>? data1 = ltgdata.data;
+                  List<LoTrinhGhiData> data1 = ltgdata.data;
                   return ListView.builder(
                     primary: false,
                     itemCount: 1,
                     itemBuilder: (BuildContext context, int index1) {
                       if (this.j == index) {
-                        data1![index1].chiSoCu = slghi;
+                        data1[index1].chiSoCu = slghi;
                         data1[index1].chiSoMoi = chghi;
                         data1[index1].khachHangID = daghi;
                         data1[index1].soNK = chthu;
@@ -254,7 +252,7 @@ class _GhiChiSoState extends State<GhiChiSo> {
                                                   chiNhanhID,
                                                   nhanVienID,
                                                   loTrinhID,
-                                                  token!,
+                                                  token,
                                                   index);
 
                                           // futureLoTrinhGhiData =
@@ -329,7 +327,7 @@ class _GhiChiSoState extends State<GhiChiSo> {
                                                     chiNhanhID,
                                                     nhanVienID,
                                                     loTrinhID,
-                                                    token!,
+                                                    token,
                                                     index);
 
                                             // futureLoTrinhGhiData =

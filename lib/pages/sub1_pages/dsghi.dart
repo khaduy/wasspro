@@ -3,7 +3,7 @@ import 'package:wasspro/pages/sub1_pages/chuaghi.dart';
 import 'package:wasspro/pages/sub1_pages/daghi.dart';
 
 class DsGhi extends StatefulWidget {
-  const DsGhi({Key? key}) : super(key: key);
+  const DsGhi({Key key}) : super(key: key);
   @override
   State<DsGhi> createState() => _DsGhiState();
 }

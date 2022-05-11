@@ -4,77 +4,77 @@ import 'dart:async';
 import 'dart:convert';
 
 class DangNhapData {
-  double? nhanVienID;
-  String? maNV;
+  double nhanVienID;
+  String maNV;
   String hoTenNV;
-  String? ngaySinh;
-  bool? gioiTinh;
-  String? quocTich;
-  String? soCMND;
-  String? ngayCap;
-  String? noiCap;
-  String? diaChi;
-  String? hoKhau;
-  String? mST;
-  String? sDT;
-  double? chiNhanhID;
-  String? phongBanID;
-  String? keToan;
-  String? admin;
-  String? hDXD;
-  String? extra1;
-  String? extra2;
-  String? extra3;
-  String? maNd;
-  String? password;
-  String? token;
-  String? tenCN;
-  String? sDTCN;
-  String? dCCN;
-  String? expired;
-  String? tenCTY;
-  String? dCCTY;
-  String? sDTCTY;
-  String? maCN;
-  String? mACAddress;
-  String? modelName;
+  String ngaySinh;
+  bool gioiTinh;
+  String quocTich;
+  String soCMND;
+  String ngayCap;
+  String noiCap;
+  String diaChi;
+  String hoKhau;
+  String mST;
+  String sDT;
+  double chiNhanhID;
+  String phongBanID;
+  String keToan;
+  String admin;
+  String hDXD;
+  String extra1;
+  String extra2;
+  String extra3;
+  String maNd;
+  String password;
+  String token;
+  String tenCN;
+  String sDTCN;
+  String dCCN;
+  String expired;
+  String tenCTY;
+  String dCCTY;
+  String sDTCTY;
+  String maCN;
+  String mACAddress;
+  String modelName;
 
   DangNhapData(
     {
-    required this.nhanVienID,
-    required this.maNV,
-    required this.hoTenNV,
-    required this.ngaySinh,
-    required this.gioiTinh,
-    required this.quocTich,
-    required this.soCMND,
-    required this.ngayCap,
-    required this.noiCap,
-    required this.diaChi,
-    required this.hoKhau,
-    required this.mST,
-    required this.sDT,
-    required this.chiNhanhID,
-    required this.phongBanID,
-    required this.keToan,
-    required this.admin,
-    required this.hDXD,
-    required this.extra1,
-    required this.extra2,
-    required this.extra3,
-    required this.maNd,
-    required this.password,
-    required this.token,
-    required this.tenCN,
-    required this.sDTCN,
-    required this.dCCN,
-    required this.expired,
-    required this.tenCTY,
-    required this.dCCTY,
-    required this.sDTCTY,
-    required this.maCN,
-    required this.mACAddress,
-    required this.modelName,
+    this.nhanVienID,
+    this.maNV,
+    this.hoTenNV,
+    this.ngaySinh,
+    this.gioiTinh,
+    this.quocTich,
+    this.soCMND,
+    this.ngayCap,
+    this.noiCap,
+    this.diaChi,
+    this.hoKhau,
+    this.mST,
+    this.sDT,
+    this.chiNhanhID,
+    this.phongBanID,
+    this.keToan,
+    this.admin,
+    this.hDXD,
+    this.extra1,
+    this.extra2,
+    this.extra3,
+    this.maNd,
+    this.password,
+    this.token,
+    this.tenCN,
+    this.sDTCN,
+    this.dCCN,
+    this.expired,
+    this.tenCTY,
+    this.dCCTY,
+    this.sDTCTY,
+    this.maCN,
+    this.mACAddress,
+    this.modelName,
   }
   );
 

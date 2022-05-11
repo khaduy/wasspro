@@ -15,7 +15,7 @@ import '../models/lotrinhthu.dart';
 import '../models/lotrinhthu_data.dart';
 
 class HoaDon extends StatefulWidget {
-  const HoaDon({Key? key}) : super(key: key);
+  const HoaDon({Key key}) : super(key: key);
   @override
   State<HoaDon> createState() => _HoaDonState();
 }
@@ -33,8 +33,8 @@ class _HoaDonState extends State<HoaDon> {
     futureThongTinHoaDon = fetchThongTinHoaDonFirst();
   }
 
-  Future<List<LoTrinhThu>>? futureHoaDon;
-  Future<List<LoTrinhThuData>>? futureThongTinHoaDon;
+  Future<List<LoTrinhThu>> futureHoaDon;
+  Future<List<LoTrinhThuData>> futureThongTinHoaDon;
   final slhd1 = Get.put(Control());
   Future<List<LoTrinhThuData>> fetchThongTinHoaDon(num loTrinhID,
       num nhanVienID, num chiNhanhID, String token, int index) async {
@@ -164,9 +164,9 @@ class _HoaDonState extends State<HoaDon> {
                 future: futureHoaDon,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    List<LoTrinhThu>? data = snapshot.data;
+                    List<LoTrinhThu> data = snapshot.data;
                     return ListView.builder(
-                      itemCount: data!.length,
+                      itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return InfoBill(
                             data,
@@ -205,11 +205,11 @@ class _HoaDonState extends State<HoaDon> {
             future: futureThongTinHoaDon,
             builder: (context, thongtinhoadon) {
               if (thongtinhoadon.hasData) {
-                List<LoTrinhThuData>? data1 = thongtinhoadon.data;
+                List<LoTrinhThuData> data1 = thongtinhoadon.data;
                 return ListView.builder(
                   shrinkWrap: true,
                   primary: false,
-                  itemCount: data1!.length,
+                  itemCount: data1.length,
                   itemBuilder: (BuildContext context, int index1) {
                     if (this.i == index) {
                       data1[index1].soluongthu = this.soluongthu;

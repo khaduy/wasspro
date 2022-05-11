@@ -3,7 +3,7 @@ import 'package:wasspro/pages/sub1_pages/chuathu.dart';
 import 'package:wasspro/pages/sub1_pages/dathu.dart';
 
 class DsThu extends StatefulWidget {
-  const DsThu({Key? key}) : super(key: key);
+  const DsThu({Key key}) : super(key: key);
   @override
   State<DsThu> createState() => _DsThuState();
 }

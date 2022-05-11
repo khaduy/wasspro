@@ -66,10 +66,10 @@ class LoTrinhKH {
   num loTrinhID;
 
   LoTrinhKH(
-      {required this.soluongKH,
-      required this.tenlt,
-      required this.maLT,
-      required this.loTrinhID});
+      {this.soluongKH,
+      this.tenlt,
+      this.maLT,
+      this.loTrinhID});
 
   factory LoTrinhKH.fromJson(Map<String, dynamic> json) {
     return LoTrinhKH(

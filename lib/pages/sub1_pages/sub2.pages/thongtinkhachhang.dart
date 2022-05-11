@@ -8,7 +8,7 @@ import 'package:wasspro/models/dskhthu.dart';
 
 class ThongTinKhachHang extends StatefulWidget {
   const ThongTinKhachHang({
-    Key? key,
+    Key key,
   }) : super(key: key);
   @override
   State<ThongTinKhachHang> createState() => _ThongTinKhachHangState();
@@ -23,7 +23,7 @@ class _ThongTinKhachHangState extends State<ThongTinKhachHang> {
 
   final Control index2 = Get.find();
 
-  Future<DSKHThu>? futureDSKHThu;
+  Future<DSKHThu> futureDSKHThu;
   Future<DSKHThu> fetchTTKHThu() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List jsonResponse = await jsonDecode(prefs.getString("dskh") ?? "");
@@ -72,7 +72,7 @@ class _ThongTinKhachHangState extends State<ThongTinKhachHang> {
                         TextFormField(
                           enabled: false,
                           initialValue:
-                              '${dskh.data!.madanhbo} - ${dskh.data!.hoTenKH}',
+                              '${dskh.data.madanhbo} - ${dskh.data.hoTenKH}',
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
@@ -87,7 +87,7 @@ class _ThongTinKhachHangState extends State<ThongTinKhachHang> {
                         TextFormField(
                           maxLines: 2,
                           enabled: false,
-                          initialValue: '${dskh.data!.diachi}',
+                          initialValue: '${dskh.data.diachi}',
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20, bottom: 20),
@@ -110,7 +110,7 @@ class _ThongTinKhachHangState extends State<ThongTinKhachHang> {
                                       child: Container(
                                         child: TextFormField(
                                           enabled: false,
-                                          initialValue: '${dskh.data!.maDT}',
+                                          initialValue: '${dskh.data.maDT}',
                                         ),
                                       ),
                                     )
@@ -138,7 +138,7 @@ class _ThongTinKhachHangState extends State<ThongTinKhachHang> {
                                         child: Container(
                                           child: TextFormField(
                                             enabled: false,
-                                            initialValue: '${dskh.data!.soNK}',
+                                            initialValue: '${dskh.data.soNK}',
                                           ),
                                         ),
                                       )
@@ -164,7 +164,7 @@ class _ThongTinKhachHangState extends State<ThongTinKhachHang> {
                                         child: TextFormField(
                                           enabled: false,
                                           initialValue:
-                                              '${dskh.data!.madanhbo}',
+                                              '${dskh.data.madanhbo}',
                                         ),
                                       ),
                                     )

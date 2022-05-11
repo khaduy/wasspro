@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'package:get/get.dart';
 import 'package:wasspro/pages/dangnhap.dart';
 import 'package:wasspro/pages/ghichiso.dart';
 import 'package:wasspro/pages/hoadon.dart';
+import 'package:wasspro/pages/print_pages/printing_widget.dart';
 import 'package:wasspro/pages/quanlykhachhang.dart';
 import 'package:wasspro/pages/sub1_pages/dsghi.dart';
 import 'package:wasspro/pages/sub1_pages/dsthu.dart';
@@ -24,20 +26,39 @@ class Control extends GetxController {
   RxInt index = 0.obs;
   RxString MaKH = "".obs;
   RxString imgPath = "".obs;
+  RxString deviceID = "".obs;
+  RxString deviceName = "".obs;
+  RxString deviceType = "".obs;
+  RxString deviceIsDis = "".obs;
+  RxString deviceService = "".obs;
+
   void add_slhd(int data) {
     slhd0.value = data;
   }
+
   void add_tt(int data) {
     tongtien.value = data;
   }
+
   void add_index(int data) {
     index.value = data;
   }
+
   void add_makh(String data) {
     MaKH.value = data;
   }
+
   void add_imgPath(String data) {
     imgPath.value = data;
+  }
+
+  void add_deviceName(String data) {
+    deviceName.value = data;
+  }
+
+  void add_device(DeviceIdentifier id, String name) {
+    deviceID.value = id.toString();
+    deviceName.value = name;
   }
 }
 
@@ -60,6 +81,7 @@ class Wasspro extends StatelessWidget {
         '/ttkhchghi': (context) => TTKH_ChGhi(),
         '/camera': (context) => Camera(),
         '/ttkhdaghi': (context) => TTKH_DaGhi(),
+        '/prtgwg': (context) => PrintingWidget(),
       },
     );
   }

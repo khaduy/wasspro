@@ -22,7 +22,7 @@ class ThongKeData {
   final String maTL;
 
   ThongKeData({
-    required this.maTL,
+    this.maTL,
   });
 
   factory ThongKeData.fromJson(Map<String, dynamic> json) {

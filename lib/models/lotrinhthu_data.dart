@@ -19,16 +19,16 @@ class LoTrinhThuData {
   num tongtiendongbo;
 
   LoTrinhThuData(
-      {required this.soluongthu,
-      required this.tongtienthu,
-      required this.tenLT,
-      required this.maLT,
-      required this.maCN,
-      required this.loTrinhID,
-      required this.chiNhanhID,
-      required this.nhanVienID,
-      required this.soluongdongbo,
-      required this.tongtiendongbo});
+      {this.soluongthu,
+      this.tongtienthu,
+      this.tenLT,
+      this.maLT,
+      this.maCN,
+      this.loTrinhID,
+      this.chiNhanhID,
+      this.nhanVienID,
+      this.soluongdongbo,
+      this.tongtiendongbo});
 
   factory LoTrinhThuData.fromJson(Map<String, dynamic> json) {
     return LoTrinhThuData(

@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // import '../models/lotrinhthu_data.dart';
 
 class DaThu extends StatefulWidget {
-  const DaThu({Key? key}) : super(key: key);
+  const DaThu({Key key}) : super(key: key);
   @override
   State<DaThu> createState() => _DaThuState();
 }
@@ -31,7 +31,7 @@ class _DaThuState extends State<DaThu> {
   final money = new NumberFormat("#,##0", "eu");
   int sl = 0;
 
-  Future<List<DSKHThu>>? futureDSKHThu;
+  Future<List<DSKHThu>> futureDSKHThu;
 
   Future<List<DSKHThu>> fetchDSKHThu() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -61,10 +61,10 @@ class _DaThuState extends State<DaThu> {
                 future: futureDSKHThu,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    List<DSKHThu>? data = snapshot.data;
+                    List<DSKHThu> data = snapshot.data;
 
                     return ListView.builder(
-                      itemCount: data!.length,
+                      itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return TextButton(
                             onPressed: () {

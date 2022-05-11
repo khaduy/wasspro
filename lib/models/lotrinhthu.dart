@@ -75,16 +75,16 @@ class LoTrinhThu {
   final num tongtiendongbo;
 
   LoTrinhThu(
-      {required this.soluongthu,
-      required this.tongtienthu,
-      required this.tenLT,
-      required this.maLT,
-      required this.maCN,
-      required this.nhanVienID,
-      required this.loTrinhID,
-      required this.chiNhanhID,
-      required this.soluongdongbo,
-      required this.tongtiendongbo});
+      {this.soluongthu,
+      this.tongtienthu,
+      this.tenLT,
+      this.maLT,
+      this.maCN,
+      this.nhanVienID,
+      this.loTrinhID,
+      this.chiNhanhID,
+      this.soluongdongbo,
+      this.tongtiendongbo});
 
   factory LoTrinhThu.fromJson(Map<String, dynamic> json) {
     return LoTrinhThu(

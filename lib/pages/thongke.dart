@@ -19,7 +19,7 @@ class _ThongKeState extends State<ThongKe> {
   String hoTenNV = "";
   String maND = "";
 
-  Future<List<ThongKeData>>? futureThongKe;
+  Future<List<ThongKeData>> futureThongKe;
   @override
   void initState() {
     super.initState();
@@ -60,7 +60,7 @@ class _ThongKeState extends State<ThongKe> {
                 Text("Từ ngày"),
                 ElevatedButton(
                     onPressed: () async {
-                      DateTime? newDate = await showDatePicker(
+                      DateTime newDate = await showDatePicker(
                         context: context,
                         initialDate: day,
                         firstDate: DateTime(1900),
@@ -77,7 +77,7 @@ class _ThongKeState extends State<ThongKe> {
                 Text("Đến ngày"),
                 ElevatedButton(
                     onPressed: () async {
-                      DateTime? newDate1 = await showDatePicker(
+                      DateTime newDate1 = await showDatePicker(
                         context: context,
                         initialDate: now,
                         firstDate: DateTime(1900),
@@ -104,9 +104,9 @@ class _ThongKeState extends State<ThongKe> {
                     future: futureThongKe,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        List<ThongKeData>? data = snapshot.data;
+                        List<ThongKeData> data = snapshot.data;
                         return ListView.builder(
-                          itemCount: data!.length,
+                          itemCount: data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

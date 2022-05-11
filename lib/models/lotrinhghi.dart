@@ -62,26 +62,26 @@ Future<List<LoTrinhGhi>> fetchLoTrinhGhi() async {
 }
 
 class LoTrinhGhi {
-  num? soluongghi;
-  num? daghi;
-  num? dathu;
-  String? tenLT;
-  String? maLT;
-  String? maCN;
-  num? nhanVienID;
-  num? loTrinhID;
-  num? chiNhanhID;
+  num soluongghi;
+  num daghi;
+  num dathu;
+  String tenLT;
+  String maLT;
+  String maCN;
+  num nhanVienID;
+  num loTrinhID;
+  num chiNhanhID;
 
   LoTrinhGhi(
-      {required this.soluongghi,
-      required this.daghi,
-      required this.dathu,
-      required this.tenLT,
-      required this.maLT,
-      required this.maCN,
-      required this.nhanVienID,
-      required this.loTrinhID,
-      required this.chiNhanhID});
+      {this.soluongghi,
+      this.daghi,
+      this.dathu,
+      this.tenLT,
+      this.maLT,
+      this.maCN,
+      this.nhanVienID,
+      this.loTrinhID,
+      this.chiNhanhID});
 
   factory LoTrinhGhi.fromJson(Map<String, dynamic> json) {
     return LoTrinhGhi(

@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wasspro/main.dart';
 
 class DaGhi extends StatefulWidget {
-  const DaGhi({Key? key}) : super(key: key);
+  const DaGhi({Key key}) : super(key: key);
   @override
   State<DaGhi> createState() => _DaGhiState();
 }
@@ -16,7 +16,7 @@ class _DaGhiState extends State<DaGhi> {
   List empList = [];
   List filteredList = [];
 
-  Future<List>? futureDSKHGhi;
+  Future<List> futureDSKHGhi;
 
   Future<List> getEmpData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -78,7 +78,7 @@ class _DaGhiState extends State<DaGhi> {
                   future: futureDSKHGhi,
                   builder: (ctx, ss) {
                     if (ss.hasData) {
-                      empList = ss.data!;
+                      empList = ss.data;
                       return Expanded(
                           child: ValueListenableBuilder<String>(
                               valueListenable: empName,

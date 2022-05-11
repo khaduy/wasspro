@@ -8,22 +8,22 @@ import 'package:image_picker/image_picker.dart';
 
 class Camera extends StatefulWidget {
   const Camera({
-    Key? key,
+    Key key,
   }) : super(key: key);
   @override
   State<Camera> createState() => _CameraState();
 }
 
 class _CameraState extends State<Camera> {
-  File? imageFile;
+  File imageFile;
   void _getFromCamera() async {
-    XFile? pickedFile = await ImagePicker().pickImage(
+    XFile pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
       maxHeight: 1080,
       maxWidth: 1080,
     );
     setState(() {
-      imageFile = File(pickedFile!.path);
+      imageFile = File(pickedFile.path);
     });
     Navigator.pop(context);
   }
@@ -55,7 +55,7 @@ class _CameraState extends State<Camera> {
                 ),
                 imageFile != null
                     ? Container(
-                        child: Image.file(imageFile!),
+                        child: Image.file(imageFile),
                       )
                     : Container(
                         child: Icon(

@@ -11,13 +11,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/lotrinhkh.dart';
 
 class QLKhachHang extends StatefulWidget {
-  const QLKhachHang({Key? key}) : super(key: key);
+  const QLKhachHang({Key key}) : super(key: key);
   @override
   State<QLKhachHang> createState() => _QLKhachHangState();
 }
 
 class _QLKhachHangState extends State<QLKhachHang> {
-  Future<List<LoTrinhKH>>? futureLoTrinhKH;
+  Future<List<LoTrinhKH>> futureLoTrinhKH;
 
   @override
   void initState() {
@@ -73,9 +73,9 @@ class _QLKhachHangState extends State<QLKhachHang> {
                 future: futureLoTrinhKH,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    List<LoTrinhKH>? data = snapshot.data;
+                    List<LoTrinhKH> data = snapshot.data;
                     return ListView.builder(
-                      itemCount: data!.length,
+                      itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,

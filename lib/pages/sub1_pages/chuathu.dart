@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChuaThu extends StatefulWidget {
-  const ChuaThu({Key? key}) : super(key: key);
+  const ChuaThu({Key key}) : super(key: key);
 
   @override
   State<ChuaThu> createState() => _ChuaThuState();

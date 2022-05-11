@@ -7,7 +7,7 @@ import 'package:wasspro/main.dart';
 import 'package:wasspro/models/dskhghi.dart';
 
 class ChuaGhi extends StatefulWidget {
-  const ChuaGhi({Key? key}) : super(key: key);
+  const ChuaGhi({Key key}) : super(key: key);
   @override
   State<ChuaGhi> createState() => _ChuaGhiState();
 }
@@ -17,7 +17,7 @@ class _ChuaGhiState extends State<ChuaGhi> {
   List empList = [];
   List filteredList = [];
 
-  Future<List>? futureDSKHGhi;
+  Future<List> futureDSKHGhi;
 
   Future<List> getEmpData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -78,7 +78,7 @@ class _ChuaGhiState extends State<ChuaGhi> {
                   future: futureDSKHGhi,
                   builder: (ctx, ss) {
                     if (ss.hasData) {
-                      empList = ss.data!;
+                      empList = ss.data;
                       return Expanded(
                           child: ValueListenableBuilder<String>(
                               valueListenable: empName,

@@ -114,7 +114,7 @@ Drawer Drawer1(String hoTenNV, String maND, BuildContext context) {
           ),
           title: Text('Cài đặt máy in'),
           onTap: () {
-            Navigator.pop(context);
+             Navigator.pushNamed(context, '/prtgwg');
           },
         ),
         Divider(

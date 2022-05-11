@@ -14,7 +14,7 @@ import 'package:camera/camera.dart';
 import 'package:wasspro/pages/sub1_pages/sub2.pages/camera.dart';
 
 class TTKH_ChGhi extends StatefulWidget {
-  const TTKH_ChGhi({Key? key}) : super(key: key);
+  const TTKH_ChGhi({Key key}) : super(key: key);
   @override
   State<TTKH_ChGhi> createState() => _TTKH_ChGhiState();
 }
@@ -29,7 +29,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
   }
 
   List empList = [];
-  Future<List>? futureDSKHGhi;
+  Future<List> futureDSKHGhi;
   Future<List> getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List jsonResponse = await jsonDecode(prefs.getString("dskhghi") ?? "");
@@ -40,15 +40,15 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
     });
   }
 
-  File? imageFile;
+  File imageFile;
   void _getFromCamera() async {
-    XFile? pickedFile = await ImagePicker().pickImage(
+    XFile pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
       maxHeight: 1080,
       maxWidth: 1080,
     );
     setState(() {
-      imageFile = File(pickedFile!.path);
+      imageFile = File(pickedFile.path);
     });
   }
 
@@ -212,7 +212,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
           future: futureDSKHGhi,
           builder: (ctx, dskh) {
             if (dskh.hasData) {
-              empList = dskh.data!;
+              empList = dskh.data;
               return ListView.builder(
                   itemCount: empList.length,
                   itemBuilder: (ctx, i) {
@@ -1862,8 +1862,8 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
                                                 ? SizedBox(
                                                     height: 500,
                                                     child: Container(
-                                                      child: Image.file(
-                                                          imageFile!),
+                                                      child:
+                                                          Image.file(imageFile),
                                                     ),
                                                   )
                                                 : Container(child: Text(''))
@@ -1886,7 +1886,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
                                     return DropdownMenuItem(
                                       child: Container(
                                         child: Text(item["NoiDung"]),
-                                        width: 500,
+                                        width: size.width * 70 / 100,
                                       ),
                                       value: item["GhiChuID"],
                                     );
