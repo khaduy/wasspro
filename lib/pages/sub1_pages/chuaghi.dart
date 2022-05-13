@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wasspro/main.dart';
 import 'package:wasspro/models/dskhghi.dart';
 
+import 'package:http/http.dart' as http;
+
 class ChuaGhi extends StatefulWidget {
   const ChuaGhi({Key key}) : super(key: key);
   @override
@@ -20,8 +22,21 @@ class _ChuaGhiState extends State<ChuaGhi> {
   Future<List> futureDSKHGhi;
 
   Future<List> getEmpData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List jsonResponse = await jsonDecode(prefs.getString("dskhghi") ?? "");
+    final response = await http.post(
+      Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getDSKhachHangGhi'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Token": "a29c79a210968550fe54fe8d86fd27dd",
+        "NhanVienID": '48',
+        "ChiNhanhID": "9",
+        "LoTrinhID": '96',
+        "UserToken": "765edf44ac1a6730cc0f38b42fcb1926"
+      }),
+    );
+    List jsonResponse = await jsonDecode(response.body)["data"];
     setState(() {
       sl = jsonResponse.where((e) => e["ChiSoMoi"] == 0).toList().length;
     });

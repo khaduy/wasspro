@@ -242,7 +242,6 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
             .toList()[0]
             .device;
       });
-      print(dvInfo);
     });
     flutterBlue.stopScan();
     showHoaDon();
@@ -351,7 +350,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         padding: const EdgeInsets.all(20),
                         child: SizedBox(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
                                 padding:
@@ -1967,24 +1966,40 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 ),
                               ),
                               // SELECT BOX TRANG THAI
-                              Text(
-                                'Trạng thái',
-                                style: TextStyle(
-                                    color: Colors.lightBlue, fontSize: 18),
+                              Container(
+                                width: size.width,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Trạng thái',
+                                      style: TextStyle(
+                                          color: Colors.lightBlue,
+                                          fontSize: 18),
+                                          textAlign: TextAlign.center
+                                    ),
+                                    SizedBox(
+                                       width: size.width,
+                                      child: DropdownButton(
+                                          alignment: AlignmentDirectional.centerStart,
+                                          elevation: 2,
+                                          items: data.map((item) {
+                                            return DropdownMenuItem(
+                                              alignment:
+                                                  AlignmentDirectional.center,
+                                              child: SizedBox(
+                                                child: Text(item["NoiDung"]),
+                                                width: size.width * 82/100,
+                                              ),
+                                              value: item["GhiChuID"],
+                                            );
+                                          }).toList(),
+                                          onChanged: null,
+                                          value: empList[i]["GhiChuID"] ?? 0),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              DropdownButton(
-                                  elevation: 2,
-                                  items: data.map((item) {
-                                    return DropdownMenuItem(
-                                      child: Container(
-                                        child: Text(item["NoiDung"]),
-                                        width: size.width * 70 / 100,
-                                      ),
-                                      value: item["GhiChuID"],
-                                    );
-                                  }).toList(),
-                                  onChanged: null,
-                                  value: empList[i]["GhiChuID"] ?? 0),
                               // GHI CHU
                               Padding(
                                 padding: const EdgeInsets.only(top: 10),
@@ -2910,42 +2925,42 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                       child: Container(
                           child: Text(
                         'Tiền nước:',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế TN(5%):',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí nước thải:',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Chỉ số mới',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế NT(10%):',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí môi trường:',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                   ],
@@ -2961,42 +2976,42 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         child: Container(
                             child: Text(
                           '${tienNuoc ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueTN ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                     ],
@@ -3977,42 +3992,42 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                       child: Container(
                           child: Text(
                         'Tiền nước:',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế TN(5%):',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí nước thải:',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Chỉ số mới',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế NT(10%):',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí môi trường:',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 19),
                       )),
                     ),
                   ],
@@ -4028,42 +4043,42 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         child: Container(
                             child: Text(
                           '${tienNuoc ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueTN ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black, fontSize: 19),
                         )),
                       ),
                     ],

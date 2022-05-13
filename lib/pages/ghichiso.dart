@@ -46,12 +46,9 @@ class _GhiChiSoState extends State<GhiChiSo> {
   Future<List<LoTrinhGhi>> futureLoTrinhGhi;
 
   Future<List<LoTrinhGhiData>> futureLoTrinhGhiData;
-  int j = -1;
-  int slghi = 0;
-  int chghi = 0;
-  int daghi = 0;
-  int chthu = 0;
-  int dathu = 0;
+  int j = -1, slghi = 0;
+  int chghi = 0, daghi = 0;
+  int chthu = 0, dathu = 0;
   Future<List<LoTrinhGhiData>> fetchLoTrinhGhiData(num chiNhanhID,
       num nhanVienID, num loTrinhID, String token, int index) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -69,7 +66,6 @@ class _GhiChiSoState extends State<GhiChiSo> {
         "UserToken": "765edf44ac1a6730cc0f38b42fcb1926"
       }),
     );
-    // print(loTrinhID);
     slghi = 0;
     chghi = 0;
     daghi = 0;
@@ -178,14 +174,16 @@ class _GhiChiSoState extends State<GhiChiSo> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: size.height * 1 / 9,
+          // height: size.height * 12 / 100,
           child: FutureBuilder<List<LoTrinhGhiData>>(
               future: futureLoTrinhGhiData,
               builder: (context, ltgdata) {
                 if (ltgdata.hasData) {
                   List<LoTrinhGhiData> data1 = ltgdata.data;
                   return ListView.builder(
-                    primary: false,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    // primary: false,
                     itemCount: 1,
                     itemBuilder: (BuildContext context, int index1) {
                       if (this.j == index) {
@@ -199,123 +197,60 @@ class _GhiChiSoState extends State<GhiChiSo> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, '/dsghi');
-                                  },
+                                SizedBox(
+                                  width: size.width * 80 / 100,
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment : CrossAxisAlignment.start,
                                     children: [
-                                      RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          text: TextSpan(
-                                            text:
-                                                '${data[index].maLT} - ${data[index].tenLT}',
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                color: Colors.black),
-                                          )),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Số lượng ghi: ${data1[index1].chiSoCu} - Chưa ghi: ${data1[index1].chiSoMoi} - Đã ghi: ${data1[index1].khachHangID}',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Chưa thu: ${data1[index1].soNK} - Đã thu: ${data1[index1].doiTuongID}',
-                                        style: TextStyle(color: Colors.orange),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Chưa đồng bộ: 0 - Đã đồng bộ: 0',
-                                        style: TextStyle(color: Colors.green),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(context, '/dsghi');
+                                        },
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            RichText(
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                text: TextSpan(
+                                                  text:
+                                                      '${data[index].maLT} - ${data[index].tenLT}',
+                                                  style: TextStyle(
+                                                      fontSize: 17,
+                                                      color: Colors.black),
+                                                )),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              'Số lượng ghi: ${data1[index1].chiSoCu} - Chưa ghi: ${data1[index1].chiSoMoi} - Đã ghi: ${data1[index1].khachHangID}',
+                                              style: TextStyle(color: Colors.blue),
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              'Chưa thu: ${data1[index1].soNK} - Đã thu: ${data1[index1].doiTuongID}',
+                                              style:
+                                                  TextStyle(color: Colors.orange),
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              'Chưa đồng bộ: 0 - Đã đồng bộ: 0',
+                                              style: TextStyle(color: Colors.green),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    TextButton(
-                                        onPressed: () {
-                                          futureLoTrinhGhiData =
-                                              fetchLoTrinhGhiData(
-                                                  chiNhanhID,
-                                                  nhanVienID,
-                                                  loTrinhID,
-                                                  token,
-                                                  index);
-
-                                          // futureLoTrinhGhiData =
-                                          //     fetchLoTrinhGhiData(
-                                          //         9.0, 48.0, 96.0, '4d24', 0);
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon_sync_lotrinh.png",
-                                          width: 50,
-                                          height: 50,
-                                        ))
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        );
-                      } else {
-                        return Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          text: TextSpan(
-                                            text:
-                                                '${data[index].maLT} - ${data[index].tenLT}',
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                color: Colors.black),
-                                          )),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Số lượng ghi: 0 - Chưa ghi: 0 - Đã ghi: 0',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Chưa thu: 0 - Đã thu: 0',
-                                        style: TextStyle(color: Colors.orange),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Chưa đồng bộ: 0 - Đã đồng bộ: 0',
-                                        style: TextStyle(color: Colors.green),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
+                                SizedBox(
+                                  width: size.width * 10 / 100,
+                                  child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     mainAxisSize: MainAxisSize.max,
@@ -336,10 +271,94 @@ class _GhiChiSoState extends State<GhiChiSo> {
                                           },
                                           child: Image.asset(
                                             "assets/icon_sync_lotrinh.png",
-                                            width: 50,
-                                            height: 50,
+                                            width: 40,
+                                            height: 40,
                                           ))
                                     ],
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        );
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: size.width * 80 / 100,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        RichText(
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            text: TextSpan(
+                                              text:
+                                                  '${data[index].maLT} - ${data[index].tenLT}',
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: Colors.black),
+                                            )),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Số lượng ghi: 0 - Chưa ghi: 0 - Đã ghi: 0',
+                                          style: TextStyle(color: Colors.blue),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Chưa thu: 0 - Đã thu: 0',
+                                          style:
+                                              TextStyle(color: Colors.orange),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Chưa đồng bộ: 0 - Đã đồng bộ: 0',
+                                          style: TextStyle(color: Colors.green),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 10 / 100,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        TextButton(
+                                            onPressed: () {
+                                              futureLoTrinhGhiData =
+                                                  fetchLoTrinhGhiData(
+                                                      chiNhanhID,
+                                                      nhanVienID,
+                                                      loTrinhID,
+                                                      token,
+                                                      index);
+
+                                              // futureLoTrinhGhiData =
+                                              //     fetchLoTrinhGhiData(
+                                              //         9.0, 48.0, 96.0, '4d24', 0);
+                                            },
+                                            child: Image.asset(
+                                              "assets/icon_sync_lotrinh.png",
+                                              width: 30,
+                                              height: 30,
+                                            ))
+                                      ],
+                                    ),
                                   )
                                 ],
                               )

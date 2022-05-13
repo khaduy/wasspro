@@ -1,8 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io' as Io;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +12,7 @@ import 'package:wasspro/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
+import 'package:wasspro/pages/print_pages/alert.dart';
 import 'package:wasspro/pages/sub1_pages/sub2.pages/camera.dart';
 
 class TTKH_ChGhi extends StatefulWidget {
@@ -28,11 +30,60 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
     getStatus();
   }
 
+  var ki1, ki2, ki3;
+  var batthuong;
+  var KY;
+  var ChiSoNuocID, KhachHangID;
+  var ChiSoMoi, LuongTieuThu;
+  var TienHang, TienThue, TienBVMT;
+  var ThanhTien, ThuTien, GhiChuID;
+  var Notes, BatThuong, NgayGhi;
+  var NhanVienID, MaNV, TienThueDH;
+  var TienVThueDH, TienVBVMT, TienNThai;
+  var TienVNThai, TienTruyThu, DiaChi;
+  var LoTrinhID, HinhAnh, UserToken;
+  var CSMoi_DHThay, CSCu_DHThay;
   List empList = [];
   Future<List> futureDSKHGhi;
   Future<List> getData() async {
+    final response1 = await http.post(
+      Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getBatThuong'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Token": "a29c79a210968550fe54fe8d86fd27dd",
+      }),
+    );
+    var jsonRes1 = await jsonDecode(response1.body)["data"][0]["soluong"];
+    batthuong = jsonRes1;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List jsonResponse = await jsonDecode(prefs.getString("dskhghi") ?? "");
+    var jsonRes = jsonResponse
+        .where((e) => e["MaDanhBo"].toString() == ctrl.MaKH.value.toString())
+        .toList()[0];
+    print(jsonResponse
+        .where((e) => e["MaDanhBo"].toString() == ctrl.MaKH.value.toString())
+        .toList());
+    ki1 = jsonRes["TieuThuKyTruoc"];
+    ki2 = jsonRes["TieuThuKyTruoc2"];
+    ki3 = jsonRes["TieuThuKyTruoc3"];
+    KY = jsonRes["KyGhiID"];
+    KY = KY.substring(4, 6) + "/" + KY.substring(0, 4);
+    ChiSoNuocID = jsonRes["ChiSoNuocID"];
+    KhachHangID = jsonRes["KhachHangID"];
+    TienBVMT = jsonRes["TienBVMT_app"];
+    ThuTien = jsonRes["ThuTien_app"];
+    TienThueDH = jsonRes["TienThueDH_app"];
+    TienVThueDH = jsonRes["TienVThueDH_app"];
+    TienVBVMT = jsonRes["TienVBVMT_app"];
+    TienNThai = jsonRes["TienNThai_app"];
+    TienVNThai = jsonRes["TienVNThai_app"];
+    TienTruyThu = jsonRes["TienTruyThu_app"];
+    DiaChi = jsonRes["DiaChiKH"];
+    LoTrinhID = jsonRes["LoTrinhID"];
+
     return Future.delayed(const Duration(seconds: 1), () {
       return jsonResponse
           .where((e) => e["MaDanhBo"].toString() == ctrl.MaKH.value.toString())
@@ -40,7 +91,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
     });
   }
 
-  File imageFile;
+  Io.File imageFile;
   void _getFromCamera() async {
     XFile pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
@@ -48,7 +99,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
       maxWidth: 1080,
     );
     setState(() {
-      imageFile = File(pickedFile.path);
+      imageFile = Io.File(pickedFile.path);
     });
   }
 
@@ -66,6 +117,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
         "Token": "a29c79a210968550fe54fe8d86fd27dd",
       }),
     );
+    List jsonResponse = await jsonDecode(response.body)["data"];
     final response1 = await http.post(
       Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getBangGia'),
       headers: <String, String>{
@@ -76,17 +128,23 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
         "Token": "a29c79a210968550fe54fe8d86fd27dd",
       }),
     );
-    List jsonResponse = await jsonDecode(response.body)["data"];
+
     List jsonResponse1 = await jsonDecode(response1.body)["data"];
     dg1 = jsonResponse1[0]["DonGia0V"].toInt();
     dg2 = jsonResponse1[1]["DonGia0V"].toInt();
     dg3 = jsonResponse1[2]["DonGia0V"].toInt();
     dg4 = jsonResponse1[3]["DonGia0V"].toInt();
-    print('abc: ${dg1}');
     setState(() {
       data = jsonResponse;
       _mySelection = jsonResponse[0]["GhiChuID"];
     });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String result = (prefs.getString('dangnhap') ?? "");
+    var jsonResult = json.decode(result);
+    print(jsonResult);
+    NhanVienID = jsonResult["NhanVienID"];
+    MaNV = jsonResult["MaNV"];
+    UserToken = jsonResult["token"];
     return Future.delayed(const Duration(seconds: 1), () {
       return jsonResponse;
     });
@@ -98,10 +156,13 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
   var dg, tt_1, tt_2, tt_3, tt_4;
   var tongTien, tienNuoc, thueTN, thueBao;
   int truonghop = 0;
+  int csmInt = 0;
+  int csc = 0;
+  var csm1;
   final money = new NumberFormat("#,##0", "eu");
   void changedText(String value, empList) {
-    int csc = empList.toInt();
-    int csmInt = 0;
+    csm1 = value;
+    csc = empList.toInt();
     int temp = 0;
     if (value == "") {
       setState(() {
@@ -185,6 +246,141 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
     }
   }
 
+  final _alertDialogBase = AlertDialogBase();
+  void checkSave() {
+    if (mtt == null || mtt == '') {
+      _alertDialogBase.showDialogThongBao(context, "Chưa cập nhật chỉ số mới");
+    } else if (mtt < 0) {
+      _alertDialogBase.showDialogThongBao(context, "Chỉ số mới không hợp lệ");
+    } else {
+      double TB = (ki1 + ki2 + ki3) / 3;
+      double checkBT = (ki1 + ki2 + ki3) / 3 + batthuong;
+      double mttDouble = mtt.toDouble();
+      double mtt2 = mttDouble - TB;
+      print(TB);
+      print(mttDouble);
+      if (mttDouble > checkBT) {
+        BatThuong = true;
+        Fluttertoast.showToast(
+            msg:
+                'Mức tiêu thụ ${mtt2.toInt()} chênh lệch hơn ${batthuong.toInt()} m3',
+            fontSize: 18,
+            gravity: ToastGravity.BOTTOM);
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Thông báo"),
+              content: const Text('Bạn có chắc chắn lưu những thông tin này!'),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("Cancel"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text("OK"),
+                  onPressed: () {
+                    saveData();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        BatThuong = false;
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Thông báo"),
+              content: const Text('Bạn có chắc chắn lưu những thông tin này!'),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("Cancel"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text("OK"),
+                  onPressed: () {
+                    saveData();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }
+  }
+
+  void saveData() async {
+    NgayGhi = DateTime.now();
+    var body1 = jsonEncode(<String, String>{
+      "Key": "3b851f9fb412e97ec9992295ab9c3215",
+      "Token": "a29c79a210968550fe54fe8d86fd27dd",
+      "ChiSoNuocID": ChiSoNuocID.toString(),
+      "KhachHangID": KhachHangID.toString(),
+      "ChiSoMoi": csm1.toString(),
+      "LuongTieuThu": mtt.toString(),
+      "TienHang": tienNuoc,
+      "TienThue": thueTN,
+      "TienBVMT": TienBVMT.toString(),
+      "ThanhTien": tongTien.toString(),
+      "ThuTien": 'false',
+      "Product":
+          "<Products><Product><ProdName>GIA1AB</ProdName><ProdQuantity>10.0</ProdQuantity><ProdPrice>7470.0000</ProdPrice><Amount>74704.8000</Amount><ProdPriceV>7844.0000</ProdPriceV><AmountV>78440.0000</AmountV></Product><Product><ProdName>GIA2AB</ProdName><ProdQuantity>8.0</ProdQuantity><ProdPrice>9338.0000</ProdPrice><Amount>74704.8000</Amount><ProdPriceV>9805.0000</ProdPriceV><AmountV>78440.0000</AmountV></Product></Products>",
+      "GhiChuID": GhiChuID.toString(),
+      "Notes": Notes.toString(),
+      "BatThuong": BatThuong.toString(),
+      "LocationX": '0',
+      "LocationY": '0',
+      "NgayGhi": NgayGhi.toString(),
+      "NgayDongBo": NgayGhi.toString(),
+      "NhanVienID": NhanVienID.toString(),
+      "MaNV": MaNV.toString(),
+      "TienThueDH": TienThueDH.toString(),
+      "TienVThueDH": TienVThueDH.toString(),
+      "TienVBVMT": TienVBVMT.toString(),
+      "TienNThai": TienNThai.toString(),
+      "TienVNThai": TienVNThai.toString(),
+      "TienTruyThu": TienTruyThu.toString(),
+      "DiaChi": DiaChi.toString(),
+      "LoTrinhID": LoTrinhID.toString(),
+      "HinhAnh": null,
+      "UserToken": UserToken.toString(),
+      "CSMoi_DHThay": '0',
+      "CSCu_DHThay": '0'
+    });
+    print(body1);
+
+    final response = await http.post(
+        Uri.parse('http://api.vnptcantho.com.vn/pntest/api/updateChiSoNuoc'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: body1);
+    if (response.statusCode == 200) {
+      if (jsonDecode(response.body)["message"] == "Success") {
+        List jsonResponse = await jsonDecode(response.body)["data"];
+        String respString1 = await jsonEncode(jsonResponse);
+        print(jsonResponse);
+        print(respString1);
+      } else {
+        print('null roi');
+      }
+    } else {
+      print('res: ${response.body}');
+      throw Exception('Failed');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -198,10 +394,9 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/hoadon')
-                    .whenComplete(() => null);
+                checkSave();
               },
-              child: Image.asset("assets/icon_sync.png"),
+              child: Image.asset("assets/icon_save.png"),
             ),
           ),
         ],
@@ -220,7 +415,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
                         padding: const EdgeInsets.all(20),
                         child: SizedBox(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
                                 padding:
@@ -245,8 +440,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
                                             child: Container(
                                               child: TextFormField(
                                                 enabled: false,
-                                                initialValue:
-                                                    '${empList[i]["KyGhiID"]}',
+                                                initialValue: '${KY}',
                                               ),
                                             ),
                                           )
@@ -1874,30 +2068,39 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
                                   ],
                                 ),
                               ),
-                              // SELECT BOX
-                              Text(
-                                'Trạng thái',
-                                style: TextStyle(
-                                    color: Colors.lightBlue, fontSize: 18),
+                              // SELECT BOX TRANG THAI
+                              Container(
+                                width: size.width,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Trạng thái',
+                                      style: TextStyle(
+                                          color: Colors.lightBlue,
+                                          fontSize: 18),
+                                    ),
+                                    DropdownButton(
+                                        alignment: AlignmentDirectional.center,
+                                        elevation: 2,
+                                        items: data.map((item) {
+                                          return DropdownMenuItem(
+                                            child: Container(
+                                              child: Text(item["NoiDung"]),
+                                            ),
+                                            value: item["GhiChuID"],
+                                          );
+                                        }).toList(),
+                                        onChanged: (newVal) {
+                                          setState(() {
+                                            _mySelection = newVal;
+                                          });
+                                          print(newVal);
+                                        },
+                                        value: _mySelection),
+                                  ],
+                                ),
                               ),
-                              DropdownButton(
-                                  elevation: 2,
-                                  items: data.map((item) {
-                                    return DropdownMenuItem(
-                                      child: Container(
-                                        child: Text(item["NoiDung"]),
-                                        width: size.width * 70 / 100,
-                                      ),
-                                      value: item["GhiChuID"],
-                                    );
-                                  }).toList(),
-                                  onChanged: (newVal) {
-                                    setState(() {
-                                      _mySelection = newVal;
-                                    });
-                                    print(newVal);
-                                  },
-                                  value: _mySelection),
                               Padding(
                                 padding: const EdgeInsets.only(top: 10),
                                 child: Text(
@@ -1919,8 +2122,11 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
                                 ),
                               ),
                               TextFormField(
-                                  // initialValue: '${empList[i]["MaDanhBo"]}',
-                                  ),
+                                onChanged: (String value) {
+                                  Notes = value;
+                                },
+                                // initialValue: '${empList[i]["MaDanhBo"]}',
+                              ),
                             ],
                           ),
                         ));

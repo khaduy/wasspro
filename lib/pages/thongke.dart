@@ -24,7 +24,7 @@ class _ThongKeState extends State<ThongKe> {
   void initState() {
     super.initState();
     checkLoginStatus();
-    futureThongKe = fetchThongKe();
+    // futureThongKe = fetchThongKe();
   }
 
   Future<void> checkLoginStatus() async {
@@ -135,7 +135,8 @@ class _ThongKeState extends State<ThongKe> {
                       }
                       return Container(
                         alignment: Alignment.center,
-                        child: CircularProgressIndicator(),
+                        child: Text(''),
+                        // CircularProgressIndicator(),
                       );
                     }),
               ),
