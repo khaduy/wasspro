@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<List<LoTrinhGhi>> fetchLoTrinhGhi() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-
+  var login = await jsonDecode(prefs.getString("dangnhap"));
   if (prefs.getString("lotrinhghi") == "khong co") {
     final response = await http.post(
       Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getLoTrinhGhi'),
@@ -17,9 +17,9 @@ Future<List<LoTrinhGhi>> fetchLoTrinhGhi() async {
       body: jsonEncode(<String, String>{
         "Key": "3b851f9fb412e97ec9992295ab9c3215",
         "Token": "a29c79a210968550fe54fe8d86fd27dd",
-        "NhanVienID": '48',
-        "ChiNhanhID": "9",
-        "UserToken": "765edf44ac1a6730cc0f38b42fcb1926"
+        "NhanVienID": login['NhanVienID'].toInt().toString(),
+        "ChiNhanhID": login['ChiNhanhID'].toInt().toString(),
+        "UserToken": login['token'].toString(),
       }),
     );
     if (response.statusCode == 200) {

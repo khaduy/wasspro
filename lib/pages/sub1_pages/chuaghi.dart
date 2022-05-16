@@ -20,8 +20,10 @@ class _ChuaGhiState extends State<ChuaGhi> {
   List filteredList = [];
 
   Future<List> futureDSKHGhi;
-
+  final Control slhd2 = Get.find();
   Future<List> getEmpData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var login = await jsonDecode(prefs.getString("dangnhap"));
     final response = await http.post(
       Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getDSKhachHangGhi'),
       headers: <String, String>{
@@ -30,10 +32,10 @@ class _ChuaGhiState extends State<ChuaGhi> {
       body: jsonEncode(<String, String>{
         "Key": "3b851f9fb412e97ec9992295ab9c3215",
         "Token": "a29c79a210968550fe54fe8d86fd27dd",
-        "NhanVienID": '48',
-        "ChiNhanhID": "9",
-        "LoTrinhID": '96',
-        "UserToken": "765edf44ac1a6730cc0f38b42fcb1926"
+        "NhanVienID": login['NhanVienID'].toInt().toString(),
+        "ChiNhanhID": login['ChiNhanhID'].toInt().toString(),
+        "LoTrinhID": '${slhd2.loTrinhID.value}',
+        "UserToken": login['token'].toString(),
       }),
     );
     List jsonResponse = await jsonDecode(response.body)["data"];
@@ -78,17 +80,17 @@ class _ChuaGhiState extends State<ChuaGhi> {
           padding: const EdgeInsets.only(top: 15.0, right: 5, left: 5),
           child: Column(
             children: <Widget>[
-              TextField(
-                controller: editingController,
-                onChanged: changed,
-                decoration: InputDecoration(
-                    labelText: "Search",
-                    hintText: "Search",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-              ),
-              SizedBox(height: 15),
+              // TextField(
+              //   controller: editingController,
+              //   onChanged: changed,
+              //   decoration: InputDecoration(
+              //       labelText: "Search",
+              //       hintText: "Search",
+              //       prefixIcon: Icon(Icons.search),
+              //       border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+              // ),
+              // SizedBox(height: 15),
               FutureBuilder<List>(
                   future: futureDSKHGhi,
                   builder: (ctx, ss) {

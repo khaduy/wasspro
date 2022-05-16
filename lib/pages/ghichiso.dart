@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:wasspro/drawer.dart';
+import 'package:wasspro/main.dart';
 import 'package:wasspro/pages/dangnhap.dart';
 import 'package:wasspro/models/dangnhap_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,9 +51,12 @@ class _GhiChiSoState extends State<GhiChiSo> {
   int j = -1, slghi = 0;
   int chghi = 0, daghi = 0;
   int chthu = 0, dathu = 0;
+  final slhd1 = Get.put(Control());
   Future<List<LoTrinhGhiData>> fetchLoTrinhGhiData(num chiNhanhID,
       num nhanVienID, num loTrinhID, String token, int index) async {
+    slhd1.addLotrinhID(loTrinhID);
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    var login = await jsonDecode(prefs.getString("dangnhap"));
     final response = await http.post(
       Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getDSKhachHangGhi'),
       headers: <String, String>{
@@ -60,10 +65,10 @@ class _GhiChiSoState extends State<GhiChiSo> {
       body: jsonEncode(<String, String>{
         "Key": "3b851f9fb412e97ec9992295ab9c3215",
         "Token": "a29c79a210968550fe54fe8d86fd27dd",
-        "NhanVienID": '48',
-        "ChiNhanhID": "9",
-        "LoTrinhID": '96',
-        "UserToken": "765edf44ac1a6730cc0f38b42fcb1926"
+        "NhanVienID": login['NhanVienID'].toInt().toString(),
+        "ChiNhanhID": login['ChiNhanhID'].toInt().toString(),
+        "LoTrinhID": loTrinhID.toString(),
+        "UserToken": login['token'].toString(),
       }),
     );
     slghi = 0;
@@ -174,7 +179,6 @@ class _GhiChiSoState extends State<GhiChiSo> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          // height: size.height * 12 / 100,
           child: FutureBuilder<List<LoTrinhGhiData>>(
               future: futureLoTrinhGhiData,
               builder: (context, ltgdata) {
@@ -200,11 +204,13 @@ class _GhiChiSoState extends State<GhiChiSo> {
                                 SizedBox(
                                   width: size.width * 80 / 100,
                                   child: Column(
-                                    crossAxisAlignment : CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.pushNamed(context, '/dsghi');
+                                          Navigator.pushNamed(
+                                              context, '/dsghi');
                                         },
                                         child: Column(
                                           crossAxisAlignment:
@@ -225,22 +231,24 @@ class _GhiChiSoState extends State<GhiChiSo> {
                                             ),
                                             Text(
                                               'Số lượng ghi: ${data1[index1].chiSoCu} - Chưa ghi: ${data1[index1].chiSoMoi} - Đã ghi: ${data1[index1].khachHangID}',
-                                              style: TextStyle(color: Colors.blue),
+                                              style:
+                                                  TextStyle(color: Colors.blue),
                                             ),
                                             SizedBox(
                                               height: 5,
                                             ),
                                             Text(
                                               'Chưa thu: ${data1[index1].soNK} - Đã thu: ${data1[index1].doiTuongID}',
-                                              style:
-                                                  TextStyle(color: Colors.orange),
+                                              style: TextStyle(
+                                                  color: Colors.orange),
                                             ),
                                             SizedBox(
                                               height: 5,
                                             ),
                                             Text(
                                               'Chưa đồng bộ: 0 - Đã đồng bộ: 0',
-                                              style: TextStyle(color: Colors.green),
+                                              style: TextStyle(
+                                                  color: Colors.green),
                                             ),
                                           ],
                                         ),

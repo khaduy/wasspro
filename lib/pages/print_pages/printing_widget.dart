@@ -86,7 +86,7 @@ class _PrintingWidgetState extends State<PrintingWidget> {
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/ghichiso')
+                Navigator.pushNamed(context, '/prtgwg')
                     .whenComplete(() => null);
               },
               child: Image.asset("assets/icon_sync.png"),

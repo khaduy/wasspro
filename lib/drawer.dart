@@ -114,28 +114,23 @@ Drawer Drawer1(String hoTenNV, String maND, BuildContext context) {
           ),
           title: Text('Cài đặt máy in'),
           onTap: () {
-             Navigator.pushNamed(context, '/prtgwg');
+            Navigator.pushNamed(context, '/prtgwg');
           },
         ),
         Divider(
           color: Colors.white,
         ),
-        Container(
-          decoration: BoxDecoration(color: Colors.blue),
-          child: ListTile(
-            leading: Icon(Icons.logout, color: Colors.white),
-            title: Text(
-              'Đăng xuất',
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-            ),
-            onTap: () async {
-              SharedPreferences sharedPreferences =
-                  await SharedPreferences.getInstance();
-              sharedPreferences.remove('token');
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-            },
+        ListTile(
+          leading: Icon(Icons.logout, color: Colors.blue[300]),
+          title: Text(
+            'Đăng xuất',
           ),
+          onTap: () async {
+            SharedPreferences sharedPreferences =
+                await SharedPreferences.getInstance();
+            sharedPreferences.remove('token');
+            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          },
         ),
       ],
     ),

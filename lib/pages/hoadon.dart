@@ -38,8 +38,11 @@ class _HoaDonState extends State<HoaDon> {
   final slhd1 = Get.put(Control());
   Future<List<LoTrinhThuData>> fetchThongTinHoaDon(num loTrinhID,
       num nhanVienID, num chiNhanhID, String token, int index) async {
+    slhd1.addLotrinhID(loTrinhID);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
+    var login = await jsonDecode(prefs.getString("dangnhap"));
+    print(nhanVienID);
+    print(chiNhanhID);
     final response = await http.post(
       Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getLoTrinhThuByID'),
       headers: <String, String>{
@@ -48,10 +51,10 @@ class _HoaDonState extends State<HoaDon> {
       body: jsonEncode(<String, String>{
         "Key": "3b851f9fb412e97ec9992295ab9c3215",
         "Token": "a29c79a210968550fe54fe8d86fd27dd",
-        "NhanVienID": '48',
-        "ChiNhanhID": "9",
+        "NhanVienID": nhanVienID.toInt().toString(),
+        "ChiNhanhID": chiNhanhID.toInt().toString(),
         "LoTrinhID": '$loTrinhID',
-        "UserToken": "765edf44ac1a6730cc0f38b42fcb1926"
+        "UserToken": login['token'].toString()
       }),
     );
     final response1 = await http.post(
@@ -60,12 +63,12 @@ class _HoaDonState extends State<HoaDon> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-       "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
         "Token": "a29c79a210968550fe54fe8d86fd27dd",
-        "NhanVienID": '48',
-        "ChiNhanhID": "9",
+        "NhanVienID": nhanVienID.toInt().toString(),
+        "ChiNhanhID": chiNhanhID.toInt().toString(),
         "LoTrinhID": '$loTrinhID',
-        "UserToken": "765edf44ac1a6730cc0f38b42fcb1926"
+        "UserToken": login['token'].toString()
       }),
     );
     print(loTrinhID);
@@ -166,6 +169,7 @@ class _HoaDonState extends State<HoaDon> {
                   if (snapshot.hasData) {
                     List<LoTrinhThu> data = snapshot.data;
                     return ListView.builder(
+                      shrinkWrap: true,
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return InfoBill(
@@ -201,155 +205,72 @@ class _HoaDonState extends State<HoaDon> {
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FutureBuilder<List<LoTrinhThuData>>(
-            future: futureThongTinHoaDon,
-            builder: (context, thongtinhoadon) {
-              if (thongtinhoadon.hasData) {
-                List<LoTrinhThuData> data1 = thongtinhoadon.data;
-                return ListView.builder(
-                  shrinkWrap: true,
-                  primary: false,
-                  itemCount: data1.length,
-                  itemBuilder: (BuildContext context, int index1) {
-                    if (this.i == index) {
-                      data1[index1].soluongthu = this.soluongthu;
-                      data1[index1].tongtienthu = this.tongtienthu;
-                      data1[index1].soluongdongbo = this.soluongdongbo;
-                      data1[index1].tongtiendongbo = this.tongtiendongbo;
-                      return Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/dsthu');
-                                },
-                                child: SizedBox(
-                                  width: size.width * 80 / 100,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      RichText(
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          text: TextSpan(
-                                            text:
-                                                '${data[index].maLT} - ${data[index].tenLT}',
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                color: Colors.black),
-                                          )),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Đã thu: ${data1[index1].soluongthu} - Tổng tiền: ${data1[index1].tongtienthu}',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Số lượng đồng bộ: ${data1[index1].soluongdongbo} - Tổng tiền: ${data1[index1].tongtiendongbo}',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Số lượng chưa đồng bộ: 0 - Tổng tiền: 0',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: size.width * 13 / 100,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    TextButton(
-                                        onPressed: () {
-                                          futureThongTinHoaDon =
-                                              fetchThongTinHoaDon(
-                                                  loTrinhID,
-                                                  nhanVienID,
-                                                  chiNhanhID,
-                                                  token,
-                                                  index);
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon_sync_lotrinh.png",
-                                          width: 50,
-                                          height: 50,
-                                        ))
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          Divider(
-                            color: Colors.black,
-                          ),
-                        ],
-                      );
-                    } else {
-                      data1[index1].soluongthu = 0;
-                      data1[index1].tongtienthu = 0;
-                      data1[index1].soluongdongbo = 0;
-                      data1[index1].tongtiendongbo = 0;
-                      return Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+        SizedBox(
+          child: FutureBuilder<List<LoTrinhThuData>>(
+              future: futureThongTinHoaDon,
+              builder: (context, thongtinhoadon) {
+                if (thongtinhoadon.hasData) {
+                  List<LoTrinhThuData> data1 = thongtinhoadon.data;
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: data1.length,
+                    itemBuilder: (BuildContext context, int index1) {
+                      if (this.i == index) {
+                        data1[index1].soluongthu = this.soluongthu;
+                        data1[index1].tongtienthu = this.tongtienthu;
+                        data1[index1].soluongdongbo = this.soluongdongbo;
+                        data1[index1].tongtiendongbo = this.tongtiendongbo;
+                        return Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SizedBox(
-                                  width: size.width * 80 / 100,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          text: TextSpan(
-                                            text:
-                                                '${data[index].maLT} - ${data[index].tenLT}',
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                color: Colors.black),
-                                          )),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Đã thu: ${data1[index1].soluongthu} - Tổng tiền: ${data1[index1].tongtienthu}',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Số lượng đồng bộ: ${data1[index1].soluongdongbo} - Tổng tiền: ${data1[index1].tongtiendongbo}',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Số lượng chưa đồng bộ: 0 - Tổng tiền: 0',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                    ],
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/dsthu');
+                                  },
+                                  child: SizedBox(
+                                    width: size.width * 80 / 100,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        RichText(
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            text: TextSpan(
+                                              text:
+                                                  '${data[index].maLT} - ${data[index].tenLT}',
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: Colors.black),
+                                            )),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Đã thu: ${data1[index1].soluongthu} - Tổng tiền: ${data1[index1].tongtienthu}',
+                                          style: TextStyle(color: Colors.blue),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Số lượng đồng bộ: ${data1[index1].soluongdongbo} - Tổng tiền: ${data1[index1].tongtiendongbo}',
+                                          style: TextStyle(color: Colors.blue),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Số lượng chưa đồng bộ: 0 - Tổng tiền: 0',
+                                          style: TextStyle(color: Colors.blue),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -383,21 +304,109 @@ class _HoaDonState extends State<HoaDon> {
                               color: Colors.black,
                             ),
                           ],
-                        ),
-                      );
-                    }
-                  },
-                );
-              } else if (thongtinhoadon.hasError) {
+                        );
+                      } else {
+                        data1[index1].soluongthu = 0;
+                        data1[index1].tongtienthu = 0;
+                        data1[index1].soluongdongbo = 0;
+                        data1[index1].tongtiendongbo = 0;
+                        return Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: size.width * 80 / 100,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        RichText(
+                                            overflow: TextOverflow.ellipsis,
+                                            text: TextSpan(
+                                              text:
+                                                  '${data[index].maLT} - ${data[index].tenLT}',
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: Colors.black),
+                                            )),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Đã thu: ${data1[index1].soluongthu} - Tổng tiền: ${data1[index1].tongtienthu}',
+                                          style: TextStyle(color: Colors.blue),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Số lượng đồng bộ: ${data1[index1].soluongdongbo} - Tổng tiền: ${data1[index1].tongtiendongbo}',
+                                          style: TextStyle(color: Colors.blue),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Số lượng chưa đồng bộ: 0 - Tổng tiền: 0',
+                                          style: TextStyle(color: Colors.blue),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: size.width * 13 / 100,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        TextButton(
+                                            onPressed: () {
+                                              futureThongTinHoaDon =
+                                                  fetchThongTinHoaDon(
+                                                      loTrinhID,
+                                                      nhanVienID,
+                                                      chiNhanhID,
+                                                      token,
+                                                      index);
+                                            },
+                                            child: Image.asset(
+                                              "assets/icon_sync_lotrinh.png",
+                                              width: 50,
+                                              height: 50,
+                                            ))
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                  );
+                } else if (thongtinhoadon.hasError) {
+                  return Container(
+                      alignment: Alignment.center,
+                      child: Text("Không tìm thấy dữ liệu"));
+                }
                 return Container(
-                    alignment: Alignment.center,
-                    child: Text("Không tìm thấy dữ liệu"));
-              }
-              return Container(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(),
-              );
-            }),
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(),
+                );
+              }),
+        ),
       ],
     ));
   }

@@ -9,7 +9,8 @@ import 'package:wasspro/pages/quanlykhachhang.dart';
 import 'package:wasspro/pages/sub1_pages/dsghi.dart';
 import 'package:wasspro/pages/sub1_pages/dsthu.dart';
 import 'package:wasspro/pages/sub1_pages/sub2.pages/camera.dart';
-import 'package:wasspro/pages/sub1_pages/sub2.pages/thongtinkhachhang.dart';
+import 'package:wasspro/pages/sub1_pages/sub2.pages/ttkh_chthu.dart';
+import 'package:wasspro/pages/sub1_pages/sub2.pages/ttkh_dathu.dart';
 import 'package:wasspro/pages/sub1_pages/sub2.pages/ttkh_chghi.dart';
 import 'package:wasspro/pages/sub1_pages/sub2.pages/ttkh_daghi.dart';
 import 'package:wasspro/pages/thongke.dart';
@@ -23,7 +24,7 @@ void main() async {
 class Control extends GetxController {
   RxInt slhd0 = 0.obs;
   RxInt tongtien = 0.obs;
-  RxInt index = 0.obs;
+  RxString index = "".obs;
   RxString MaKH = "".obs;
   RxString imgPath = "".obs;
   RxString deviceID = "".obs;
@@ -31,6 +32,7 @@ class Control extends GetxController {
   RxString deviceType = "".obs;
   RxString deviceIsDis = "".obs;
   RxString deviceService = "".obs;
+  RxString loTrinhID = "".obs;
 
   void add_slhd(int data) {
     slhd0.value = data;
@@ -40,7 +42,7 @@ class Control extends GetxController {
     tongtien.value = data;
   }
 
-  void add_index(int data) {
+  void add_index(String data) {
     index.value = data;
   }
 
@@ -60,6 +62,10 @@ class Control extends GetxController {
     deviceID.value = id.toString();
     deviceName.value = name;
   }
+
+  void addLotrinhID(var data) {
+    loTrinhID.value = data.toString();
+  }
 }
 
 class Wasspro extends StatelessWidget {
@@ -76,7 +82,8 @@ class Wasspro extends StatelessWidget {
         '/ghichiso': (context) => GhiChiSo(),
         '/qlykh': (context) => QLKhachHang(),
         '/dsthu': (context) => DsThu(),
-        '/ttkh': (context) => ThongTinKhachHang(),
+        '/ttkhchthu': (context) => TTKH_ChThu(),
+        '/ttkhdathu': (context) => TTKH_DaThu(),
         '/dsghi': (context) => DsGhi(),
         '/ttkhchghi': (context) => TTKH_ChGhi(),
         '/camera': (context) => Camera(),

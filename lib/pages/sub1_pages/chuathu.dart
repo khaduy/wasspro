@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:json_diff/json_diff.dart';
 import 'package:wasspro/drawer.dart';
 import 'package:wasspro/main.dart';
 import 'package:wasspro/models/dskhthu.dart';
@@ -30,24 +31,71 @@ class _ChuaThuState extends State<ChuaThu> {
   final Control slhd2 = Get.find();
   final money = new NumberFormat("#,##0", "eu");
   int sl = 0;
+  double tt = 0;
 
   Future<List<DSKHThu>> futureDSKHThu;
-
   Future<List<DSKHThu>> fetchDSKHThu() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List jsonResponse = await jsonDecode(prefs.getString("dskh") ?? "");
-    print(jsonResponse.where((e) => e["HoTenKH"] == 'Nguyễn Ngọc Cường'));
-    print(jsonResponse.where((e) => e["HoTenKH"] == 'Hoàng Thị Thành'));
-    setState(() {
-      this.sl = jsonResponse.length;
+    print(slhd2.loTrinhID.value);
+    var login = await jsonDecode(prefs.getString("dangnhap"));
+    final response = await http.post(
+      Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getDSKhachHangThu'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Token": "a29c79a210968550fe54fe8d86fd27dd",
+        "NhanVienID": login['NhanVienID'].toInt().toString(),
+        "ChiNhanhID": login['ChiNhanhID'].toInt().toString(),
+        "LoTrinhID": '${slhd2.loTrinhID.value}',
+        "UserToken": login['token'].toString(),
+      }),
+    );
+    final response1 = await http.post(
+      Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getDMPhieuThuByLT'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Token": "a29c79a210968550fe54fe8d86fd27dd",
+        "NhanVienID": login['NhanVienID'].toInt().toString(),
+        "ChiNhanhID": login['ChiNhanhID'].toInt().toString(),
+        "LoTrinhID": '${slhd2.loTrinhID.value}',
+        "UserToken": login['token'].toString(),
+      }),
+    );
+    List jsonRes = await jsonDecode(response.body)["data"];
+    List jsonRes1 = await jsonDecode(response1.body)["data"];
+    List<dynamic> newList = [];
+    jsonRes.forEach((item1) {
+      bool a = true;
+      jsonRes1.forEach((item2) {
+        if (item1["KhachHangID"].toString() ==
+            item2["KhachHangID"].toString()) {
+          a = false;
+        }
+      });
+      if (a == true) {
+        newList.add(item1);
+      }
     });
-    return jsonResponse.map((data) => DSKHThu.fromJson(data)).toList();
+    newList.forEach((item) {
+      tt = tt.toDouble() + item["tongtien"].toDouble();
+    });
+    String listString = jsonEncode(newList);
+    await prefs.setString("dskhthu", listString);
+    setState(() {
+      this.sl = newList.length;
+    });
+    return newList.map((data) => DSKHThu.fromJson(data)).toList();
   }
 
   final index1 = Get.put(Control());
-  void route(int index) {
+  void route(String index) {
     index1.add_index(index);
-    Navigator.pushNamed(context, '/ttkh');
+    Navigator.pushNamed(context, '/ttkhchthu');
   }
 
   @override
@@ -70,7 +118,7 @@ class _ChuaThuState extends State<ChuaThu> {
                       itemBuilder: (BuildContext context, int index) {
                         return TextButton(
                             onPressed: () {
-                              route(index);
+                              route(data[index].madanhbo);
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,11 +142,6 @@ class _ChuaThuState extends State<ChuaThu> {
                                   'Số lượng: 1 - Tổng tiền: ${data[index].tongtien}',
                                   style: TextStyle(
                                       fontSize: 17, color: Colors.green),
-                                ),
-                                Text(
-                                  'Chưa đồng bộ: Số lượng: 0 - Tổng tiền: 0',
-                                  style: TextStyle(
-                                      fontSize: 17, color: Colors.orange),
                                 ),
                                 Divider(
                                   color: Colors.black,
@@ -150,16 +193,14 @@ class _ChuaThuState extends State<ChuaThu> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Obx(
-                          () => Text(
-                            'Số lượng HĐ: ${slhd2.slhd0.value}',
-                            style: TextStyle(
-                                color: Colors.green[800],
-                                fontWeight: FontWeight.bold),
-                          ),
+                        Text(
+                          'Số lượng HĐ: ${sl}',
+                          style: TextStyle(
+                              color: Colors.green[800],
+                              fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'Tổng tiền: ${money.format(slhd2.tongtien.value)}',
+                          'Tổng tiền: ${money.format(tt)}',
                           style: TextStyle(
                               color: Colors.green[800],
                               fontWeight: FontWeight.bold),

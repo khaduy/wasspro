@@ -99,8 +99,7 @@ class _ThongKeState extends State<ThongKe> {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 height: size.height * 10 / 15,
-                child: 
-                FutureBuilder<List<ThongKeData>>(
+                child: FutureBuilder<List<ThongKeData>>(
                     future: futureThongKe,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -162,12 +161,12 @@ class _ThongKeState extends State<ThongKe> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'data1',
+                          'Tổng: 0',
                           style: TextStyle(
                               color: Colors.blue, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'data2data2data2d2ta2',
+                          'Tổng tiền: 0',
                           style: TextStyle(
                               color: Colors.blue, fontWeight: FontWeight.bold),
                         )
@@ -180,12 +179,12 @@ class _ThongKeState extends State<ThongKe> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'data3',
+                          'Đã thu: 0',
                           style: TextStyle(
                               color: Colors.green, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'data4',
+                          'Tổng tiền: 0',
                           style: TextStyle(
                               color: Colors.green, fontWeight: FontWeight.bold),
                         )

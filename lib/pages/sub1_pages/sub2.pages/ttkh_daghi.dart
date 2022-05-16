@@ -331,7 +331,6 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                 HamIn();
               },
               child: Image.asset("assets/icon_print.png"),
-              // child: Icon(Icons.print),
             ),
           ),
         ],
@@ -1971,17 +1970,16 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Trạng thái',
-                                      style: TextStyle(
-                                          color: Colors.lightBlue,
-                                          fontSize: 18),
-                                          textAlign: TextAlign.center
-                                    ),
+                                    Text('Trạng thái',
+                                        style: TextStyle(
+                                            color: Colors.lightBlue,
+                                            fontSize: 18),
+                                        textAlign: TextAlign.center),
                                     SizedBox(
-                                       width: size.width,
+                                      width: size.width,
                                       child: DropdownButton(
-                                          alignment: AlignmentDirectional.centerStart,
+                                          alignment:
+                                              AlignmentDirectional.centerStart,
                                           elevation: 2,
                                           items: data.map((item) {
                                             return DropdownMenuItem(
@@ -1989,7 +1987,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   AlignmentDirectional.center,
                                               child: SizedBox(
                                                 child: Text(item["NoiDung"]),
-                                                width: size.width * 82/100,
+                                                width: size.width * 82 / 100,
                                               ),
                                               value: item["GhiChuID"],
                                             );

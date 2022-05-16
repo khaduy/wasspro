@@ -36,7 +36,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
   var ChiSoNuocID, KhachHangID;
   var ChiSoMoi, LuongTieuThu;
   var TienHang, TienThue, TienBVMT;
-  var ThanhTien, ThuTien, GhiChuID;
+  var ThanhTien, ThuTien, GhiChuID = 0;
   var Notes, BatThuong, NgayGhi;
   var NhanVienID, MaNV, TienThueDH;
   var TienVThueDH, TienVBVMT, TienNThai;
@@ -321,6 +321,12 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
   }
 
   void saveData() async {
+    // final bytesss = Io.File(imageFile.path).readAsBytesSync();
+    // String img64 = base64Encode(bytesss);
+    print('ghichu: ${GhiChuID}');
+    if (GhiChuID == null || GhiChuID == 0) {
+      GhiChuID = 1;
+    }
     NgayGhi = DateTime.now();
     var body1 = jsonEncode(<String, String>{
       "Key": "3b851f9fb412e97ec9992295ab9c3215",
@@ -334,8 +340,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
       "TienBVMT": TienBVMT.toString(),
       "ThanhTien": tongTien.toString(),
       "ThuTien": 'false',
-      "Product":
-          "<Products><Product><ProdName>GIA1AB</ProdName><ProdQuantity>10.0</ProdQuantity><ProdPrice>7470.0000</ProdPrice><Amount>74704.8000</Amount><ProdPriceV>7844.0000</ProdPriceV><AmountV>78440.0000</AmountV></Product><Product><ProdName>GIA2AB</ProdName><ProdQuantity>8.0</ProdQuantity><ProdPrice>9338.0000</ProdPrice><Amount>74704.8000</Amount><ProdPriceV>9805.0000</ProdPriceV><AmountV>78440.0000</AmountV></Product></Products>",
+      "Product": "",
       "GhiChuID": GhiChuID.toString(),
       "Notes": Notes.toString(),
       "BatThuong": BatThuong.toString(),
@@ -343,7 +348,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
       "LocationY": '0',
       "NgayGhi": NgayGhi.toString(),
       "NgayDongBo": NgayGhi.toString(),
-      "NhanVienID": NhanVienID.toString(),
+      "NhanVienID": NhanVienID.toInt().toString(),
       "MaNV": MaNV.toString(),
       "TienThueDH": TienThueDH.toString(),
       "TienVThueDH": TienVThueDH.toString(),
@@ -353,7 +358,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
       "TienTruyThu": TienTruyThu.toString(),
       "DiaChi": DiaChi.toString(),
       "LoTrinhID": LoTrinhID.toString(),
-      "HinhAnh": null,
+      "HinhAnh": "",
       "UserToken": UserToken.toString(),
       "CSMoi_DHThay": '0',
       "CSCu_DHThay": '0'
@@ -368,10 +373,10 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
         body: body1);
     if (response.statusCode == 200) {
       if (jsonDecode(response.body)["message"] == "Success") {
-        List jsonResponse = await jsonDecode(response.body)["data"];
-        String respString1 = await jsonEncode(jsonResponse);
+        String jsonResponse = await jsonDecode(response.body)["data"];
+        // String respString1 = await jsonEncode(jsonResponse);
         print(jsonResponse);
-        print(respString1);
+        Navigator.pushNamed(context, '/dsghi');
       } else {
         print('null roi');
       }
@@ -2094,6 +2099,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
                                         onChanged: (newVal) {
                                           setState(() {
                                             _mySelection = newVal;
+                                            GhiChuID = newVal.toInt();
                                           });
                                           print(newVal);
                                         },

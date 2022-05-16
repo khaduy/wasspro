@@ -58,8 +58,8 @@ class _DangNhapState extends State<DangNhap> {
       body: jsonEncode(<String, String>{
         "Key": "3b851f9fb412e97ec9992295ab9c3215",
         "Token": "a29c79a210968550fe54fe8d86fd27dd",
-        "MaND": "anbinh.nv01",
-        "Pass": "123456aA@"
+        "MaND": username,
+        "Pass": pass
       }),
     );
     if (response.statusCode == 200) {
@@ -89,7 +89,7 @@ class _DangNhapState extends State<DangNhap> {
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context, 'Ok'),
-                child: const Text('Ok'),
+                child: const Text('OK'),
               ),
             ],
           ),

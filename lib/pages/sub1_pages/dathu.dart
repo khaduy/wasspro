@@ -30,22 +30,68 @@ class _DaThuState extends State<DaThu> {
   final Control slhd2 = Get.find();
   final money = new NumberFormat("#,##0", "eu");
   int sl = 0;
+  double tt = 0;
 
   Future<List<DSKHThu>> futureDSKHThu;
-
   Future<List<DSKHThu>> fetchDSKHThu() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List jsonResponse = await jsonDecode(prefs.getString("dskh") ?? "");
-    setState(() {
-      this.sl = jsonResponse.length;
+    print(slhd2.loTrinhID.value);
+    var login = await jsonDecode(prefs.getString("dangnhap"));
+    final response = await http.post(
+      Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getDSKhachHangThu'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Token": "a29c79a210968550fe54fe8d86fd27dd",
+        "NhanVienID": login['NhanVienID'].toInt().toString(),
+        "ChiNhanhID": login['ChiNhanhID'].toInt().toString(),
+        "LoTrinhID": '${slhd2.loTrinhID.value}',
+        "UserToken": login['token'].toString(),
+      }),
+    );
+    final response1 = await http.post(
+      Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getDMPhieuThuByLT'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Token": "a29c79a210968550fe54fe8d86fd27dd",
+        "NhanVienID": login['NhanVienID'].toInt().toString(),
+        "ChiNhanhID": login['ChiNhanhID'].toInt().toString(),
+        "LoTrinhID": '${slhd2.loTrinhID.value}',
+        "UserToken": login['token'].toString(),
+      }),
+    );
+    print('denday');
+    List jsonRes = await jsonDecode(response.body)["data"];
+    List jsonRes1 = await jsonDecode(response1.body)["data"];
+    List<dynamic> newList = [];
+    jsonRes.forEach((item1) {
+      jsonRes1.forEach((item2) {
+        if (item1["KhachHangID"].toInt() == item2["KhachHangID"].toInt()) {
+          newList.add(item1);
+        }
+      });
     });
-    return jsonResponse.map((data) => DSKHThu.fromJson(data)).toList();
+    newList.forEach((item) {
+      tt = tt.toDouble() + item["tongtien"].toDouble();
+    });
+    String listString = jsonEncode(newList);
+    prefs.setString("dskhthu", listString);
+
+    setState(() {
+      this.sl = newList.length;
+    });
+    return newList.map((data) => DSKHThu.fromJson(data)).toList();
   }
 
   final index1 = Get.put(Control());
-  void route(int index) {
+  void route(String index) {
     index1.add_index(index);
-    Navigator.pushNamed(context, '/ttkh');
+    Navigator.pushNamed(context, '/ttkhdathu');
   }
 
   @override
@@ -68,10 +114,9 @@ class _DaThuState extends State<DaThu> {
                       itemBuilder: (BuildContext context, int index) {
                         return TextButton(
                             onPressed: () {
-                              route(index);
+                              route(data[index].madanhbo);
                             },
-                            child: 
-                            Column(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -149,13 +194,11 @@ class _DaThuState extends State<DaThu> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Obx(
-                          () => Text(
-                            'Số lượng HĐ: ${slhd2.slhd0.value}',
-                            style: TextStyle(
-                                color: Colors.green[800],
-                                fontWeight: FontWeight.bold),
-                          ),
+                        Text(
+                          'Số lượng HĐ: ${sl}',
+                          style: TextStyle(
+                              color: Colors.green[800],
+                              fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Tổng tiền: ${money.format(slhd2.tongtien.value)}',
