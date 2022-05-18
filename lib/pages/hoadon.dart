@@ -160,7 +160,7 @@ class _HoaDonState extends State<HoaDon> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
+          padding: const EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 5),
           child: SizedBox(
             height: size.height,
             child: FutureBuilder<List<LoTrinhThu>>(
@@ -169,7 +169,7 @@ class _HoaDonState extends State<HoaDon> {
                   if (snapshot.hasData) {
                     List<LoTrinhThu> data = snapshot.data;
                     return ListView.builder(
-                      shrinkWrap: true,
+                      // shrinkWrap: true,
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return InfoBill(

@@ -134,7 +134,7 @@ class _GhiChiSoState extends State<GhiChiSo> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
+          padding: const EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 5),
           child: SizedBox(
             height: size.height,
             child: FutureBuilder<List<LoTrinhGhi>>(

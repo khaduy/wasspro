@@ -84,10 +84,6 @@ class _DangNhapState extends State<DangNhap> {
                 const Text('Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu'),
             actions: <Widget>[
               TextButton(
-                onPressed: () => Navigator.pop(context, 'Cancel'),
-                child: const Text('Cancel'),
-              ),
-              TextButton(
                 onPressed: () => Navigator.pop(context, 'Ok'),
                 child: const Text('OK'),
               ),

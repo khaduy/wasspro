@@ -63,9 +63,9 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
     var jsonRes = jsonResponse
         .where((e) => e["MaDanhBo"].toString() == ctrl.MaKH.value.toString())
         .toList()[0];
-    print(jsonResponse
-        .where((e) => e["MaDanhBo"].toString() == ctrl.MaKH.value.toString())
-        .toList());
+    // print(jsonResponse
+    //     .where((e) => e["MaDanhBo"].toString() == ctrl.MaKH.value.toString())
+    //     .toList());
     ki1 = jsonRes["TieuThuKyTruoc"];
     ki2 = jsonRes["TieuThuKyTruoc2"];
     ki3 = jsonRes["TieuThuKyTruoc3"];
@@ -83,7 +83,8 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
     TienTruyThu = jsonRes["TienTruyThu_app"];
     DiaChi = jsonRes["DiaChiKH"];
     LoTrinhID = jsonRes["LoTrinhID"];
-
+    // print(jsonRes["DoiTuongID"]);
+    tinhTien(jsonRes["DoiTuongID"]);
     return Future.delayed(const Duration(seconds: 1), () {
       return jsonResponse
           .where((e) => e["MaDanhBo"].toString() == ctrl.MaKH.value.toString())
@@ -104,6 +105,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
   }
 
   var dg1, dg2, dg3, dg4;
+  var dg11, dg22, dg33, dg44;
   var _mySelection;
   List data = List.empty();
   Future<List> getStatus() async {
@@ -118,6 +120,26 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
       }),
     );
     List jsonResponse = await jsonDecode(response.body)["data"];
+
+    // print('box: ${jsonResponse[0]["GhiChuID"]}');
+    setState(() {
+      data = jsonResponse;
+      _mySelection = jsonResponse[0]["GhiChuID"];
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String result = (prefs.getString('dangnhap') ?? "");
+    var jsonResult = json.decode(result);
+    NhanVienID = jsonResult["NhanVienID"];
+    MaNV = jsonResult["MaNV"];
+    UserToken = jsonResult["token"];
+    // print(jsonResponse);
+    return Future.delayed(const Duration(seconds: 1), () {
+      return jsonResponse;
+    });
+  }
+
+  var DenM3_1, DenM3_2, DenM3_3, DenM3_4;
+  void tinhTien(value) async {
     final response1 = await http.post(
       Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getBangGia'),
       headers: <String, String>{
@@ -128,26 +150,62 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
         "Token": "a29c79a210968550fe54fe8d86fd27dd",
       }),
     );
+    final response2 = await http.post(
+      Uri.parse('http://api.vnptcantho.com.vn/pntest/api/getBangGiaDinhMuc'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "Key": "3b851f9fb412e97ec9992295ab9c3215",
+        "Token": "a29c79a210968550fe54fe8d86fd27dd",
+      }),
+    );
 
+    List jsonResponse2 = await jsonDecode(response2.body)["data"];
+    List jsonResponse3 =
+        await jsonResponse2.where((e) => e["DoiTuongID"] == value).toList();
+    if (jsonResponse3.length >= 1) {
+      DenM3_1 = jsonResponse3[0]["DenM3"].toInt();
+    }
+    if (jsonResponse3.length >= 2) {
+      DenM3_2 = jsonResponse3[1]["DenM3"].toInt();
+    }
+    if (jsonResponse3.length >= 3) {
+      DenM3_3 = jsonResponse3[2]["DenM3"].toInt();
+    }
+    if (jsonResponse3.length >= 4) {
+      DenM3_4 = jsonResponse3[3]["DenM3"].toInt();
+    }
+    print(jsonResponse3.length);
     List jsonResponse1 = await jsonDecode(response1.body)["data"];
-    dg1 = jsonResponse1[0]["DonGia0V"].toInt();
-    dg2 = jsonResponse1[1]["DonGia0V"].toInt();
-    dg3 = jsonResponse1[2]["DonGia0V"].toInt();
-    dg4 = jsonResponse1[3]["DonGia0V"].toInt();
-    setState(() {
-      data = jsonResponse;
-      _mySelection = jsonResponse[0]["GhiChuID"];
-    });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String result = (prefs.getString('dangnhap') ?? "");
-    var jsonResult = json.decode(result);
-    print(jsonResult);
-    NhanVienID = jsonResult["NhanVienID"];
-    MaNV = jsonResult["MaNV"];
-    UserToken = jsonResult["token"];
-    return Future.delayed(const Duration(seconds: 1), () {
-      return jsonResponse;
-    });
+    if (jsonResponse3.length >= 1) {
+      List jsonResponse4 = await jsonResponse1
+          .where((e) => e["GiaID"] == jsonResponse3[0]["GiaID"])
+          .toList();
+      dg11 = jsonResponse4[0]["DonGia"].toInt();
+      dg1 = jsonResponse4[0]["DonGia0V"].toInt();
+    }
+    if (jsonResponse3.length >= 2) {
+      List jsonResponse5 = await jsonResponse1
+          .where((e) => e["GiaID"] == jsonResponse3[1]["GiaID"])
+          .toList();
+      dg22 = jsonResponse5[0]["DonGia"].toInt();
+      dg2 = jsonResponse5[0]["DonGia0V"].toInt();
+    }
+    if (jsonResponse3.length >= 3) {
+      List jsonResponse6 = await jsonResponse1
+          .where((e) => e["GiaID"] == jsonResponse3[2]["GiaID"])
+          .toList();
+      dg33 = jsonResponse6[0]["DonGia"].toInt();
+      dg3 = jsonResponse6[0]["DonGia0V"].toInt();
+    }
+    if (jsonResponse3.length >= 4) {
+      List jsonResponse7 = await jsonResponse1
+          .where((e) => e["GiaID"] == jsonResponse3[3]["GiaID"])
+          .toList();
+      dg44 = jsonResponse7[0]["DonGia"].toInt();
+      dg4 = jsonResponse7[0]["DonGia0V"].toInt();
+    }
   }
 
   var myCtrl = TextEditingController();
@@ -181,46 +239,49 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
           thueTN = 0;
           tongTien = 0;
         });
-      } else if (temp > 0 && temp <= 10) {
+      } else if (temp > 0 && temp <= DenM3_1) {
         setState(() {
           mtt = temp;
           m3_1 = temp;
           truonghop = 2;
-          tt_1 = money.format(m3_1 * dg1);
-          int tempMoney = (m3_1 * dg1);
+          tt_1 = money.format(m3_1 * (dg11 / 1.05));
+          double tempMoney = (m3_1 * (dg11 / 1.05));
           tienNuoc = tt_1;
           thueTN = money.format(tempMoney * 5 / 100);
           tongTien = money.format(tempMoney + (tempMoney * 5 / 100));
         });
-      } else if (temp > 10 && temp <= 20) {
+      } else if (temp > DenM3_1 && temp <= DenM3_1 + DenM3_2) {
         setState(() {
           mtt = temp;
           m3_1 = 10;
           m3_2 = temp - 10;
           truonghop = 3;
-          tt_1 = money.format(m3_1 * dg1);
-          tt_2 = money.format(m3_2 * dg2);
-          int tempMoney = m3_1 * dg1 + m3_2 * dg2;
+          tt_1 = money.format(m3_1 * (dg11 / 1.05));
+          tt_2 = money.format(m3_2 * (dg22 / 1.05));
+          double tempMoney = m3_1 * (dg11 / 1.05) + m3_2 * (dg22 / 1.05);
           tienNuoc = money.format(tempMoney);
           thueTN = money.format(tempMoney * 5 / 100);
           tongTien = money.format(tempMoney + (tempMoney * 5 / 100));
         });
-      } else if (temp > 20 && temp <= 30) {
+      } else if (temp > DenM3_1 + DenM3_2 &&
+          temp <= DenM3_1 + DenM3_2 + DenM3_3) {
         setState(() {
           mtt = temp;
           m3_1 = 10;
           m3_2 = 10;
           m3_3 = temp - 20;
           truonghop = 4;
-          tt_1 = money.format(m3_1 * dg1);
-          tt_2 = money.format(m3_2 * dg2);
-          tt_3 = money.format(m3_3 * dg3);
-          int tempMoney = m3_1 * dg1 + m3_2 * dg2 + m3_3 * dg3;
+          tt_1 = money.format(m3_1 * (dg11 / 1.05));
+          tt_2 = money.format(m3_2 * (dg22 / 1.05));
+          tt_3 = money.format(m3_3 * (dg33 / 1.05));
+          double tempMoney = m3_1 * (dg11 / 1.05) +
+              m3_2 * (dg22 / 1.05) +
+              m3_3 * (dg33 / 1.05);
           tienNuoc = money.format(tempMoney);
           thueTN = money.format(tempMoney * 5 / 100);
           tongTien = money.format(tempMoney + (tempMoney * 5 / 100));
         });
-      } else if (temp > 30) {
+      } else if (temp > DenM3_1 + DenM3_2 + DenM3_3) {
         setState(() {
           mtt = temp;
           m3_1 = 10;
@@ -228,11 +289,14 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
           m3_3 = 10;
           m3_4 = temp - 30;
           truonghop = 5;
-          tt_1 = money.format(m3_1 * dg1);
-          tt_2 = money.format(m3_2 * dg2);
-          tt_3 = money.format(m3_3 * dg3);
-          tt_4 = money.format(m3_4 * dg4);
-          int tempMoney = m3_1 * dg1 + m3_2 * dg2 + m3_3 * dg3 + m3_4 * dg4;
+          tt_1 = money.format(m3_1 * (dg11 / 1.05));
+          tt_2 = money.format(m3_2 * (dg22 / 1.05));
+          tt_3 = money.format(m3_3 * (dg33 / 1.05));
+          tt_4 = money.format(m3_4 * (dg44 / 1.05));
+          double tempMoney = m3_1 * (dg11 / 1.05) +
+              m3_2 * (dg22 / 1.05) +
+              m3_3 * (dg33 / 1.05) +
+              m3_4 * (dg44 / 1.05);
           tienNuoc = money.format(tempMoney);
           thueTN = money.format(tempMoney * 5 / 100);
           tongTien = money.format(tempMoney + (tempMoney * 5 / 100));
@@ -248,6 +312,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
 
   final _alertDialogBase = AlertDialogBase();
   void checkSave() {
+    print("NgayGhi: ${DateTime.now().toString()}");
     if (mtt == null || mtt == '') {
       _alertDialogBase.showDialogThongBao(context, "Chưa cập nhật chỉ số mới");
     } else if (mtt < 0) {
@@ -321,6 +386,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
   }
 
   void saveData() async {
+    // print(imageFile.path);
     // final bytesss = Io.File(imageFile.path).readAsBytesSync();
     // String img64 = base64Encode(bytesss);
     print('ghichu: ${GhiChuID}');
@@ -328,6 +394,7 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
       GhiChuID = 1;
     }
     NgayGhi = DateTime.now();
+    // print("NgayGhi: ${NgayGhi}");
     var body1 = jsonEncode(<String, String>{
       "Key": "3b851f9fb412e97ec9992295ab9c3215",
       "Token": "a29c79a210968550fe54fe8d86fd27dd",
@@ -340,14 +407,15 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
       "TienBVMT": TienBVMT.toString(),
       "ThanhTien": tongTien.toString(),
       "ThuTien": 'false',
-      "Product": "",
+      "Product":
+          "<Products><Product><ProdName>GIA1AB</ProdName><ProdQuantity>5.0</ProdQuantity><ProdPrice>7470.0000</ProdPrice><Amount>37352.4000</Amount><ProdPriceV>7844.0000</ProdPriceV><AmountV>39220.0000</AmountV></Product></Products>",
       "GhiChuID": GhiChuID.toString(),
       "Notes": Notes.toString(),
       "BatThuong": BatThuong.toString(),
       "LocationX": '0',
       "LocationY": '0',
-      "NgayGhi": NgayGhi.toString(),
-      "NgayDongBo": NgayGhi.toString(),
+      "NgayGhi": '2022-04-16T09:28:28',
+      "NgayDongBo": '2022-04-16T09:28:28',
       "NhanVienID": NhanVienID.toInt().toString(),
       "MaNV": MaNV.toString(),
       "TienThueDH": TienThueDH.toString(),
@@ -2147,7 +2215,6 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
                 child: CircularProgressIndicator());
           },
         ),
-        // child: Text('${index2.index.value}'),
       ),
     ));
   }
