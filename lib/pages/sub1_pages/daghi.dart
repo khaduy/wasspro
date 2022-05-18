@@ -141,19 +141,19 @@ class _DaGhiState extends State<DaGhi> {
                                             Text(
                                               '${listViewList[i]["HoTenKH"]}',
                                               style: TextStyle(
-                                                  fontSize: 20,
+                                                  fontSize: 18,
                                                   color: Colors.black),
                                             ),
                                             Text(
                                               'Mã KH: ${listViewList[i]["MaDanhBo"]}',
                                               style: TextStyle(
-                                                  fontSize: 18,
+                                                  fontSize: 15,
                                                   color: Colors.brown),
                                             ),
                                             Text(
                                               'MTT: ${listViewList[i]["LuongTieuThu"]} - Ngày ghi: ${datetime.format(DateTime.parse(listViewList[i]["NgayGhi"]))}',
                                               style: TextStyle(
-                                                  fontSize: 18,
+                                                  fontSize: 15,
                                                   color: Colors.green),
                                             ),
                                             if (listViewList[i]
@@ -162,21 +162,21 @@ class _DaGhiState extends State<DaGhi> {
                                               Text(
                                                 'Đã thu: ${money.format(listViewList[i]["ThanhTien_app"])}',
                                                 style: TextStyle(
-                                                    fontSize: 18,
+                                                    fontSize: 15,
                                                     color: Colors.orange),
                                               ),
                                             ] else ...[
                                               Text(
                                                 'Đã thu: chưa thu',
                                                 style: TextStyle(
-                                                    fontSize: 18,
+                                                    fontSize: 15,
                                                     color: Colors.orange),
                                               )
                                             ],
                                             Text(
                                               'Đồng hồ: ${listViewList[i]["hieuDH"]} - ${listViewList[i]["SoSeri"]} - Địa chỉ: ${listViewList[i]["DiaChiKH"]}',
                                               style: TextStyle(
-                                                  fontSize: 18,
+                                                  fontSize: 15,
                                                   color: Colors.blue),
                                             ),
                                             Divider(

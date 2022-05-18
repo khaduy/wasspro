@@ -1,3 +1,4 @@
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ import 'package:camera/camera.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(Wasspro());
+  await AppTrackingTransparency.trackingAuthorizationStatus;
 }
 
 class Control extends GetxController {

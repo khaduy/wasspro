@@ -116,25 +116,25 @@ class _ChuaGhiState extends State<ChuaGhi> {
                                             Text(
                                               '${listViewList[i]["HoTenKH"]}',
                                               style: TextStyle(
-                                                  fontSize: 20,
+                                                  fontSize: 18,
                                                   color: Colors.black),
                                             ),
                                             Text(
                                               'Mã KH: ${listViewList[i]["MaDanhBo"]}',
                                               style: TextStyle(
-                                                  fontSize: 18,
+                                                  fontSize: 15,
                                                   color: Colors.brown),
                                             ),
                                             Text(
                                               'CSC: ${listViewList[i]["ChiSoCu"]}',
                                               style: TextStyle(
-                                                  fontSize: 18,
+                                                  fontSize: 15,
                                                   color: Colors.green),
                                             ),
                                             Text(
                                               'Đồng hồ: ${listViewList[i]["hieuDH"]} - ${listViewList[i]["SoSeri"]} - Địa chỉ: ${listViewList[i]["DiaChiKH"]}',
                                               style: TextStyle(
-                                                  fontSize: 18,
+                                                  fontSize: 15,
                                                   color: Colors.blue),
                                             ),
                                             Divider(
