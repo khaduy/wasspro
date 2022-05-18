@@ -39,6 +39,7 @@ class _DaGhiState extends State<DaGhi> {
       }),
     );
     List jsonResponse = await jsonDecode(response.body)["data"];
+    await prefs.setString("dskhghi", jsonEncode(jsonResponse));
     List jsonResponse1 =
         await jsonResponse.where((e) => e["ChiSoMoi"] != 0).toList();
     jsonResponse1.forEach((item1) {

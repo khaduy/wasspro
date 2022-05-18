@@ -84,35 +84,40 @@ class _QLKhachHangState extends State<QLKhachHang> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
-                                    onPressed: () {},
-                                    child: SizedBox(
-                                      width: size.width * 80/100,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          RichText(
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              text: TextSpan(
-                                                text: '${data[index].tenlt}',
-                                                style: TextStyle(
-                                                    fontSize: 17,
-                                                    color: Colors.black),
-                                              )),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                              ('Số lượng KH: ${data[index].soluongKH}')),
-                                        ],
-                                      ),
-                                    )),
                                 SizedBox(
-                                  width: size.width * 13 / 100,
+                                  width: size.width * 80 / 100,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {},
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            RichText(
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                text: TextSpan(
+                                                  text: '${data[index].tenlt}',
+                                                  style: TextStyle(
+                                                      fontSize: 17,
+                                                      color: Colors.black),
+                                                )),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                                ('Số lượng KH: ${data[index].soluongKH}')),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: size.width * 10 / 100,
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -122,8 +127,8 @@ class _QLKhachHangState extends State<QLKhachHang> {
                                           onPressed: () {},
                                           child: Image.asset(
                                             "assets/icon_sync_lotrinh.png",
-                                            width: 50,
-                                            height: 50,
+                                            width: 40,
+                                            height: 40,
                                           ))
                                     ],
                                   ),

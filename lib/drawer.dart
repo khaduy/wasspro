@@ -41,7 +41,7 @@ Drawer Drawer1(String hoTenNV, String maND, BuildContext context) {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 25,
                           color: Colors.white,
                         )),
                     Text('$maND',

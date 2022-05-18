@@ -37,12 +37,13 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
   var ChiSoMoi, LuongTieuThu;
   var TienHang, TienThue, TienBVMT;
   var ThanhTien, ThuTien, GhiChuID = 0;
-  var Notes, BatThuong, NgayGhi;
+  var BatThuong, NgayGhi;
   var NhanVienID, MaNV, TienThueDH;
   var TienVThueDH, TienVBVMT, TienNThai;
   var TienVNThai, TienTruyThu, DiaChi;
   var LoTrinhID, HinhAnh, UserToken;
   var CSMoi_DHThay, CSCu_DHThay;
+  String Notes = "";
   List empList = [];
   Future<List> futureDSKHGhi;
   Future<List> getData() async {
@@ -410,12 +411,12 @@ class _TTKH_ChGhiState extends State<TTKH_ChGhi> {
       "Product":
           "<Products><Product><ProdName>GIA1AB</ProdName><ProdQuantity>5.0</ProdQuantity><ProdPrice>7470.0000</ProdPrice><Amount>37352.4000</Amount><ProdPriceV>7844.0000</ProdPriceV><AmountV>39220.0000</AmountV></Product></Products>",
       "GhiChuID": GhiChuID.toString(),
-      "Notes": Notes.toString(),
+      "Notes": Notes,
       "BatThuong": BatThuong.toString(),
       "LocationX": '0',
       "LocationY": '0',
-      "NgayGhi": '2022-04-16T09:28:28',
-      "NgayDongBo": '2022-04-16T09:28:28',
+      "NgayGhi": NgayGhi.toString(),
+      "NgayDongBo": NgayGhi.toString(),
       "NhanVienID": NhanVienID.toInt().toString(),
       "MaNV": MaNV.toString(),
       "TienThueDH": TienThueDH.toString(),

@@ -239,7 +239,7 @@ class _HoaDonState extends State<HoaDon> {
                                           MainAxisAlignment.start,
                                       children: [
                                         RichText(
-                                            maxLines: 1,
+                                            maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             text: TextSpan(
                                               text:
@@ -274,7 +274,7 @@ class _HoaDonState extends State<HoaDon> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: size.width * 13 / 100,
+                                  width: size.width * 10 / 100,
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -292,8 +292,8 @@ class _HoaDonState extends State<HoaDon> {
                                           },
                                           child: Image.asset(
                                             "assets/icon_sync_lotrinh.png",
-                                            width: 50,
-                                            height: 50,
+                                            width: 40,
+                                            height: 40,
                                           ))
                                     ],
                                   ),
@@ -327,6 +327,7 @@ class _HoaDonState extends State<HoaDon> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         RichText(
+                                            maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             text: TextSpan(
                                               text:
@@ -360,7 +361,7 @@ class _HoaDonState extends State<HoaDon> {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: size.width * 13 / 100,
+                                    width: size.width * 10 / 100,
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
@@ -379,8 +380,8 @@ class _HoaDonState extends State<HoaDon> {
                                             },
                                             child: Image.asset(
                                               "assets/icon_sync_lotrinh.png",
-                                              width: 50,
-                                              height: 50,
+                                              width: 40,
+                                              height: 40,
                                             ))
                                       ],
                                     ),

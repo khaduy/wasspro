@@ -240,14 +240,6 @@ class _GhiChiSoState extends State<GhiChiSo> {
                                             Text(
                                               'Chưa thu: ${data1[index1].soNK} - Đã thu: ${data1[index1].doiTuongID}',
                                               style: TextStyle(
-                                                  color: Colors.orange),
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              'Chưa đồng bộ: 0 - Đã đồng bộ: 0',
-                                              style: TextStyle(
                                                   color: Colors.green),
                                             ),
                                           ],
@@ -326,14 +318,6 @@ class _GhiChiSoState extends State<GhiChiSo> {
                                         ),
                                         Text(
                                           'Chưa thu: 0 - Đã thu: 0',
-                                          style:
-                                              TextStyle(color: Colors.orange),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          'Chưa đồng bộ: 0 - Đã đồng bộ: 0',
                                           style: TextStyle(color: Colors.green),
                                         ),
                                       ],
