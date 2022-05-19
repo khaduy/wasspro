@@ -126,22 +126,22 @@ class _ChuaThuState extends State<ChuaThu> {
                                 Text(
                                   data[index].hoTenKH,
                                   style: TextStyle(
-                                      fontSize: 20, color: Colors.black),
+                                      fontSize: 18, color: Colors.black),
                                 ),
                                 Text(
                                   data[index].madanhbo,
                                   style: TextStyle(
-                                      fontSize: 18, color: Colors.brown),
+                                      fontSize: 16, color: Colors.brown),
                                 ),
                                 Text(
                                   data[index].diachi,
                                   style: TextStyle(
-                                      fontSize: 17, color: Colors.blue),
+                                      fontSize: 15, color: Colors.blue),
                                 ),
                                 Text(
                                   'Số lượng: 1 - Tổng tiền: ${data[index].tongtien}',
                                   style: TextStyle(
-                                      fontSize: 17, color: Colors.green),
+                                      fontSize: 15, color: Colors.green),
                                 ),
                                 Divider(
                                   color: Colors.black,

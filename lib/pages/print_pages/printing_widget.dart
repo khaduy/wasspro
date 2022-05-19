@@ -9,6 +9,8 @@ import 'package:wasspro/drawer.dart';
 import 'package:wasspro/main.dart';
 import 'package:wasspro/pages/print_pages/blue_print.dart';
 
+import 'package:permission_handler/permission_handler.dart';
+
 FlutterBlue flutterBlue = FlutterBlue.instance;
 
 class PrintingWidget extends StatefulWidget {
@@ -30,6 +32,8 @@ class _PrintingWidgetState extends State<PrintingWidget> {
   String hoTenNV = "";
   String maND = "";
   Future<void> checkLoginStatus() async {
+    await Permission.bluetoothConnect.request().isGranted;
+    await Permission.bluetoothScan.request().isGranted;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString("dangnhap") == null) {
       Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);

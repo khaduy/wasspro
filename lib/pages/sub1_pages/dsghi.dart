@@ -16,6 +16,11 @@ class _DsGhiState extends State<DsGhi> {
         child: SafeArea(
           child: Scaffold(
             appBar: AppBar(
+              leading: BackButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/ghichiso');
+                },
+              ),
               title: Text('Danh sách khách hàng'),
               bottom: TabBar(tabs: [
                 Tab(

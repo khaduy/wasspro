@@ -220,7 +220,8 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
         tt_1 = money.format(m3_1 * (dg11 / 1.05));
         tt_2 = money.format(m3_2 * (dg22 / 1.05));
         tt_3 = money.format(m3_3 * dg3);
-        double tempMoney = m3_1 * (dg11 / 1.05) + m3_2 * (dg22 / 1.05) + m3_3 * (dg33 / 1.05);
+        double tempMoney =
+            m3_1 * (dg11 / 1.05) + m3_2 * (dg22 / 1.05) + m3_3 * (dg33 / 1.05);
         tienNuoc = money.format(tempMoney);
         thueTN = money.format(tempMoney * 5 / 100);
         tongTien = money.format(tempMoney + (tempMoney * 5 / 100));
@@ -236,7 +237,10 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
         tt_2 = money.format(m3_2 * (dg22 / 1.05));
         tt_3 = money.format(m3_3 * (dg33 / 1.05));
         tt_4 = money.format(m3_4 * (dg44 / 1.05));
-        double tempMoney = m3_1 * (dg11 / 1.05) + m3_2 * (dg22 / 1.05) + m3_3 * (dg33 / 1.05) + m3_4 * (dg44 / 1.05);
+        double tempMoney = m3_1 * (dg11 / 1.05) +
+            m3_2 * (dg22 / 1.05) +
+            m3_3 * (dg33 / 1.05) +
+            m3_4 * (dg44 / 1.05);
         tienNuoc = money.format(tempMoney);
         thueTN = money.format(tempMoney * 5 / 100);
         tongTien = money.format(tempMoney + (tempMoney * 5 / 100));
@@ -362,7 +366,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
       print('bat dau');
       await print("thiet bi: ${dvInfo}");
       final img = imgs.decodeImage(bytess);
-      var thumbnail = imgs.copyResize(img, width: 320);
+      var thumbnail = imgs.copyResize(img, width: 350);
       await dvInfo.connect();
       final gen = Generator(PaperSize.mm58, await CapabilityProfile.load());
       final printer = BluePrint();
@@ -741,18 +745,18 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
               '${TENCTY}',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             Text(
               '${DIACHICTY}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             Text(
               'Hotline: ${HOTLINE ?? ""}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             Padding(
@@ -761,19 +765,19 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 'GIẤY BÁO TIỀN ĐIỆN NƯỚC KỲ ${KY}',
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
             ),
             Text(
               '(Không có giá trị thu tiền)',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             Text(
               'Ngày ${TIME}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
           ],
@@ -785,28 +789,41 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
               padding: const EdgeInsets.only(top: 20),
               child: Text(
                 'MÃ KH: ${DANH_BO}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
             Text(
               'Tên KH: ${TEN_KH}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Địa chỉ: ${DIACHI}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'SĐT: ${SDT ?? ""}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Ngày ghi: ${NGAYGHI}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
           ],
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -822,7 +839,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         'CS Cũ',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -841,7 +858,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           'CS Mới',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -861,7 +878,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           'M3TT',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -887,7 +904,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         '${CSC}',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -906,7 +923,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           '${CSM}',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -926,7 +943,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           '${mtt1}',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -937,7 +954,20 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
             ],
           ),
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -953,7 +983,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         'M3',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -970,7 +1000,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         'Đơn Giá',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -987,7 +1017,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         'Thành tiền',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -1014,7 +1044,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1029,7 +1059,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1044,7 +1074,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1068,7 +1098,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1083,7 +1113,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1098,7 +1128,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1122,7 +1152,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1137,7 +1167,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1152,7 +1182,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1175,7 +1205,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1190,7 +1220,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1205,7 +1235,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1229,7 +1259,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1244,7 +1274,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1259,7 +1289,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1282,7 +1312,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1297,7 +1327,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1312,7 +1342,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1335,7 +1365,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1350,7 +1380,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg3)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1365,7 +1395,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1389,7 +1419,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1404,7 +1434,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1419,7 +1449,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1442,7 +1472,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1457,7 +1487,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1472,7 +1502,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1495,7 +1525,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1510,7 +1540,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg3)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1525,7 +1555,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1548,7 +1578,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_4}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -1565,7 +1595,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                   child: Text(
                                 '${money.format(dg4)}',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
+                                    color: Colors.black, fontSize: 16),
                               )),
                             ),
                           ],
@@ -1583,7 +1613,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                   child: Text(
                                 '${tt_4}',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
+                                    color: Colors.black, fontSize: 16),
                               )),
                             ),
                           ],
@@ -1598,7 +1628,20 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
             ],
           ],
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -1612,42 +1655,42 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                       child: Container(
                           child: Text(
                         'Tiền nước:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế TN(5%):',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí nước thải:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Chỉ số mới',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế NT(10%):',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí môi trường:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                   ],
@@ -1663,42 +1706,42 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         child: Container(
                             child: Text(
                           '${tienNuoc ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueTN ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                     ],
@@ -1708,7 +1751,20 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
             ],
           ),
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -1758,42 +1814,42 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
               padding: const EdgeInsets.only(top: 20),
               child: Text(
                 'Bằng chữ: ${ConvertTienSangChu.Convert_NumtoText(double.parse(tongTien).toInt().toString())}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
             Text(
               'Có khoán thêm: 0 m3',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
             Text('Quý khách thanh toán tại văn phòng Công ty',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                 )),
             Text(
               'Nộp chậm sẽ bị phạt Nộp chậm theo quy định. Nếu không thanh toán buộc lòng chúng tôi phải ngưng cấp nước theo quy định.',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'NV: ${hoTenNV}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'SĐT: ${sdtNV ?? ""}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Link: http://nuocsachhaugiang.com.vn',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
                 'Cảm ơn Quý khách hàng!',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
           ],
@@ -1813,18 +1869,18 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
               '${TENCTY}',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             Text(
               '${DIACHICTY}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             Text(
               'Hotline: ${HOTLINE}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             Padding(
@@ -1833,14 +1889,14 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 'BIÊN NHẬN THANH TOÁN TIỀN NƯỚC KỲ ${KY}',
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
             ),
             Text(
               'Ngày ${TIME}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
           ],
@@ -1852,28 +1908,41 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
               padding: const EdgeInsets.only(top: 20),
               child: Text(
                 'MÃ KH: ${DANH_BO}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
             Text(
               'Tên KH: ${TEN_KH}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Địa chỉ: ${DIACHI}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'SĐT: ${SDT ?? ""}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Ngày ghi: ${NGAYGHI}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
           ],
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -1889,7 +1958,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         'CS Cũ',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -1908,7 +1977,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           'CS Mới',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -1928,7 +1997,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           'M3TT',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -1954,7 +2023,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         '${CSC}',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -1973,7 +2042,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           '${CSM}',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -1993,7 +2062,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           '${mtt1}',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -2004,7 +2073,20 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
             ],
           ),
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -2020,7 +2102,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         'M3',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -2037,7 +2119,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         'Đơn Giá',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -2054,7 +2136,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         'Thành tiền',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -2081,7 +2163,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2096,7 +2178,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2111,7 +2193,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2135,7 +2217,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2150,7 +2232,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2165,7 +2247,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2189,7 +2271,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2204,7 +2286,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2219,7 +2301,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2242,7 +2324,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2257,7 +2339,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2272,7 +2354,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2296,7 +2378,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2311,7 +2393,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2326,7 +2408,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2349,7 +2431,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2364,7 +2446,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2379,7 +2461,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2402,7 +2484,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2417,7 +2499,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg3)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2432,7 +2514,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2456,7 +2538,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2471,7 +2553,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2486,7 +2568,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2509,7 +2591,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2524,7 +2606,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2539,7 +2621,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2562,7 +2644,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2577,7 +2659,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg3)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2592,7 +2674,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2615,7 +2697,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${m3_4}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2632,7 +2714,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                   child: Text(
                                 '${money.format(dg4)}',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
+                                    color: Colors.black, fontSize: 16),
                               )),
                             ),
                           ],
@@ -2650,7 +2732,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                   child: Text(
                                 '${tt_4}',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
+                                    color: Colors.black, fontSize: 16),
                               )),
                             ),
                           ],
@@ -2665,7 +2747,20 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
             ],
           ],
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -2679,42 +2774,42 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                       child: Container(
                           child: Text(
                         'Tiền nước:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế TN(5%):',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí nước thải:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Chỉ số mới',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế NT(10%):',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí môi trường:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       )),
                     ),
                   ],
@@ -2730,42 +2825,42 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                         child: Container(
                             child: Text(
                           '${tienNuoc ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueTN ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         )),
                       ),
                     ],
@@ -2775,7 +2870,20 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
             ],
           ),
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -2825,33 +2933,33 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
               padding: const EdgeInsets.only(top: 20),
               child: Text(
                 'Bằng chữ: ${ConvertTienSangChu.Convert_NumtoText(double.parse(tongTien).toInt().toString())}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
             Text(
               'Có khoán thêm: 0 m3',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
             Text(
               'NV: ${hoTenNV}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'SĐT: ${sdtNV}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Link: http://nuocsachhaugiang.com.vn',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
                 'Cảm ơn Quý khách hàng!',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
           ],
@@ -2937,7 +3045,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '0',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -2951,7 +3059,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '0',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -2965,7 +3073,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '0',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -2988,7 +3096,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${m3_1}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3002,7 +3110,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${money.format(dg1)}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3016,7 +3124,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${tt_1}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3039,7 +3147,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${m3_1}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3053,7 +3161,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${money.format(dg1)}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3067,7 +3175,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${tt_1}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3089,7 +3197,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${m3_2}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3103,7 +3211,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${money.format(dg2)}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3117,7 +3225,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${tt_2}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3140,7 +3248,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${m3_1}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3154,7 +3262,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${money.format(dg1)}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3168,7 +3276,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${tt_1}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3190,7 +3298,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${m3_2}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3204,7 +3312,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${money.format(dg2)}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3218,7 +3326,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${tt_2}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3240,7 +3348,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${m3_3}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3254,7 +3362,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${money.format(dg3)}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3268,7 +3376,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${tt_3}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3291,7 +3399,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${m3_1}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3305,7 +3413,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${money.format(dg1)}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3319,7 +3427,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${tt_1}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3341,7 +3449,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${m3_2}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3355,7 +3463,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${money.format(dg2)}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3369,7 +3477,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${tt_2}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3391,7 +3499,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${m3_3}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3405,7 +3513,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${money.format(dg3)}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3419,7 +3527,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${tt_3}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3441,7 +3549,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                           child: Container(
                               child: Text(
                             '${m3_4}',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           )),
                         ),
                       ],
@@ -3458,7 +3566,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${money.format(dg4)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3476,7 +3584,7 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                                 child: Text(
                               '${tt_4}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3694,21 +3802,21 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   '0',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   '0',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   '0',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ],
@@ -3720,21 +3828,21 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${m3_1}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${money.format(dg1)}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${tt_1}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ],
@@ -3746,21 +3854,21 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${m3_1}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${money.format(dg1)}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${tt_1}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ],
@@ -3771,21 +3879,21 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${m3_2}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${money.format(dg2)}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${tt_2}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ],
@@ -3797,21 +3905,21 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${m3_1}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${money.format(dg1)}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${tt_1}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ],
@@ -3822,21 +3930,21 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${m3_2}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${money.format(dg2)}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${tt_2}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ],
@@ -3847,21 +3955,21 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${m3_3}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${money.format(dg3)}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${tt_3}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ],
@@ -3873,21 +3981,21 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${m3_1}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${money.format(dg1)}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${tt_1}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ],
@@ -3898,21 +4006,21 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${m3_2}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${money.format(dg2)}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${tt_2}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ],
@@ -3923,21 +4031,21 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${m3_3}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${money.format(dg3)}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   '${tt_3}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ],
@@ -3946,15 +4054,15 @@ class _TTKH_ChThuState extends State<TTKH_ChThu> {
             children: [
               Text(
                 '${m3_4}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
               Text(
                 '${money.format(dg4)}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
               Text(
                 '${tt_4}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ],
           ),

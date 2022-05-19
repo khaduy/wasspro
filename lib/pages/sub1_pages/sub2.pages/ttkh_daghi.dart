@@ -194,7 +194,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
       Fluttertoast.showToast(
           msg:
               'Mức tiêu thụ ${mtt2.toInt()} chênh lệch hơn ${jsonRes1.toInt()} m3',
-          fontSize: 18,
+          fontSize: 15,
           gravity: ToastGravity.CENTER);
     }
     print('batthuong: ${jsonRes1}');
@@ -453,7 +453,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                               'Kỳ ghi',
                                               style: TextStyle(
                                                   color: Colors.blue[500],
-                                                  fontSize: 15),
+                                                  fontSize: 13),
                                             )),
                                           ),
                                           SizedBox(
@@ -481,7 +481,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Ngày ghi',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -508,7 +508,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                               'Mã danh bộ',
                                               style: TextStyle(
                                                   color: Colors.blue[500],
-                                                  fontSize: 15),
+                                                  fontSize: 13),
                                             )),
                                           ),
                                           SizedBox(
@@ -529,7 +529,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                               Text(
                                 'Mã KH - Tên khách hàng',
                                 style: TextStyle(
-                                    color: Colors.blue[500], fontSize: 15),
+                                    color: Colors.blue[500], fontSize: 13),
                               ),
                               TextFormField(
                                 enabled: false,
@@ -542,7 +542,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                   'Địa chỉ',
                                   style: TextStyle(
                                     color: Colors.blue[500],
-                                    fontSize: 15,
+                                    fontSize: 13,
                                   ),
                                 ),
                               ),
@@ -567,7 +567,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                               'Điện thoại',
                                               style: TextStyle(
                                                   color: Colors.blue[500],
-                                                  fontSize: 15),
+                                                  fontSize: 13),
                                             )),
                                           ),
                                           SizedBox(
@@ -596,7 +596,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Đối tượng',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -623,7 +623,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                               'Số NK',
                                               style: TextStyle(
                                                   color: Colors.blue[500],
-                                                  fontSize: 15),
+                                                  fontSize: 13),
                                             )),
                                           ),
                                           SizedBox(
@@ -657,7 +657,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                               'Hiệu đồng hồ',
                                               style: TextStyle(
                                                   color: Colors.blue[500],
-                                                  fontSize: 15),
+                                                  fontSize: 13),
                                             )),
                                           ),
                                           SizedBox(
@@ -686,7 +686,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Seri đồng hồ',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -715,7 +715,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                   style: TextStyle(
                                       color: Colors.brown[500],
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 15),
+                                      fontSize: 13),
                                 ),
                               ),
                               Padding(
@@ -734,7 +734,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                               'Trước 1 tháng',
                                               style: TextStyle(
                                                   color: Colors.blue[500],
-                                                  fontSize: 15),
+                                                  fontSize: 13),
                                             )),
                                           ),
                                           SizedBox(
@@ -763,7 +763,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Trước 2 tháng',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -793,7 +793,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Trước 3 tháng',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -828,7 +828,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                               'Chỉ số cũ',
                                               style: TextStyle(
                                                   color: Colors.blue[500],
-                                                  fontSize: 15),
+                                                  fontSize: 13),
                                             )),
                                           ),
                                           SizedBox(
@@ -857,7 +857,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Chỉ số mới',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -887,7 +887,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Mức tiêu thụ',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -918,21 +918,21 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                         style: TextStyle(
                                             color: Colors.brown[500],
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 15),
+                                            fontSize: 13),
                                       ),
                                       if (thutienapp == true) ...[
                                         Text(
                                           '** Chưa thu **',
                                           style: TextStyle(
                                               color: Colors.red[500],
-                                              fontSize: 15),
+                                              fontSize: 13),
                                         ),
                                       ] else ...[
                                         Text(
                                           '** Đã thu **',
                                           style: TextStyle(
                                               color: Colors.red[500],
-                                              fontSize: 15),
+                                              fontSize: 13),
                                         ),
                                       ],
                                     ],
@@ -955,7 +955,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                               'M3',
                                               style: TextStyle(
                                                   color: Colors.blue[500],
-                                                  fontSize: 15),
+                                                  fontSize: 13),
                                             )),
                                           ),
                                         ],
@@ -975,7 +975,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Đơn giá',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -996,7 +996,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Thành tiền',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1029,7 +1029,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '0',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1049,7 +1049,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '0',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1070,7 +1070,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '0',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1099,7 +1099,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${m3_1}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1119,7 +1119,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${money.format(dg1)}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1140,7 +1140,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${tt_1}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1169,7 +1169,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${m3_1}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1189,7 +1189,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${money.format(dg1)}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1210,7 +1210,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${tt_1}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1238,7 +1238,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${m3_2}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1258,7 +1258,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${money.format(dg2)}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1279,7 +1279,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${tt_2}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1308,7 +1308,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${m3_1}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1328,7 +1328,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${money.format(dg1)}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1349,7 +1349,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${tt_1}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1377,7 +1377,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${m3_2}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1397,7 +1397,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${money.format(dg2)}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1418,7 +1418,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${tt_2}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1446,7 +1446,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${m3_3}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1466,7 +1466,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${money.format(dg3)}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1487,7 +1487,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${tt_3}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1516,7 +1516,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${m3_1}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1536,7 +1536,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${money.format(dg1)}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1557,7 +1557,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${tt_1}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1585,7 +1585,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${m3_2}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1605,7 +1605,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${money.format(dg2)}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1626,7 +1626,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${tt_2}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1654,7 +1654,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${m3_3}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1674,7 +1674,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${money.format(dg3)}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1695,7 +1695,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${tt_3}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1723,7 +1723,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${m3_4}',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1743,7 +1743,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${money.format(dg4)}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1764,7 +1764,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                   '${tt_4}',
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 15),
+                                                      fontSize: 13),
                                                 )),
                                               ),
                                             ],
@@ -1799,7 +1799,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                               '',
                                               style: TextStyle(
                                                   color: Colors.blue[500],
-                                                  fontSize: 15),
+                                                  fontSize: 13),
                                             )),
                                           ),
                                         ],
@@ -1819,7 +1819,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Tiền nước:',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -1828,7 +1828,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Thuế TN(5%):',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -1837,7 +1837,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Phí nước thải:',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -1846,7 +1846,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Chỉ số mới',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -1855,7 +1855,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Thuế NT(10%):',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -1864,7 +1864,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 'Phí môi trường:',
                                                 style: TextStyle(
                                                     color: Colors.blue[500],
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1885,7 +1885,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${tienNuoc ?? ""}',
                                                 style: TextStyle(
                                                     color: Colors.red,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -1894,7 +1894,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${thueTN ?? ""}',
                                                 style: TextStyle(
                                                     color: Colors.red,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -1903,7 +1903,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${thueBao ?? ""}',
                                                 style: TextStyle(
                                                     color: Colors.red,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -1912,7 +1912,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${thueBao ?? ""}',
                                                 style: TextStyle(
                                                     color: Colors.red,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -1921,7 +1921,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${thueBao ?? ""}',
                                                 style: TextStyle(
                                                     color: Colors.red,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                             SizedBox(
@@ -1930,7 +1930,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 '${thueBao ?? ""}',
                                                 style: TextStyle(
                                                     color: Colors.red,
-                                                    fontSize: 15),
+                                                    fontSize: 13),
                                               )),
                                             ),
                                           ],
@@ -1965,7 +1965,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 18),
+                                                    fontSize: 15),
                                               )),
                                             ),
                                           ],
@@ -1987,7 +1987,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 18),
+                                                    fontSize: 15),
                                               )),
                                             ),
                                           ],
@@ -2009,7 +2009,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                                 style: TextStyle(
                                                     color: Colors.red,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 18),
+                                                    fontSize: 15),
                                               )),
                                             ),
                                           ],
@@ -2059,7 +2059,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                     Text('Trạng thái',
                                         style: TextStyle(
                                             color: Colors.lightBlue,
-                                            fontSize: 18),
+                                            fontSize: 15),
                                         textAlign: TextAlign.center),
                                     SizedBox(
                                       width: size.width,
@@ -2090,7 +2090,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                                   'Ghi chú kỳ trước',
                                   style: TextStyle(
-                                      color: Colors.blue[500], fontSize: 18),
+                                      color: Colors.blue[500], fontSize: 15),
                                 ),
                               ),
                               TextFormField(
@@ -2102,7 +2102,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                                   'Ghi chú',
                                   style: TextStyle(
-                                      color: Colors.blue[500], fontSize: 18),
+                                      color: Colors.blue[500], fontSize: 15),
                                 ),
                               ),
                               TextFormField(
@@ -2138,18 +2138,18 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
               '${TENCTY}',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             Text(
               '${DIACHICTY}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             Text(
               'Hotline: ${HOTLINE}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             Padding(
@@ -2158,19 +2158,19 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                 'GIẤY BÁO TIỀN ĐIỆN NƯỚC KỲ ${KY}',
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
             ),
             Text(
               '(Không có giá trị thu tiền)',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             Text(
               'Ngày ${TIME}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
           ],
@@ -2182,28 +2182,41 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
               padding: const EdgeInsets.only(top: 20),
               child: Text(
                 'MÃ KH: ${DANH_BO}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
             Text(
               'Tên KH: ${TEN_KH}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Địa chỉ: ${DIACHI}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'SĐT: ${SDT}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Ngày ghi: ${NGAYGHI}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
           ],
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -2219,7 +2232,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         'CS Cũ',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -2238,7 +2251,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                           'CS Mới',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -2258,7 +2271,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                           'M3TT',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -2284,7 +2297,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         '${CSC}',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -2303,7 +2316,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                           '${CSM}',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -2323,7 +2336,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                           '${mtt1}',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -2334,7 +2347,20 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
             ],
           ),
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -2350,7 +2376,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         'M3',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -2367,7 +2393,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         'Đơn Giá',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -2384,7 +2410,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         'Thành tiền',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -2411,7 +2437,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2426,7 +2452,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2441,7 +2467,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2465,7 +2491,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2480,7 +2506,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2495,7 +2521,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2519,7 +2545,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2534,7 +2560,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2549,7 +2575,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2572,7 +2598,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2587,7 +2613,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2602,7 +2628,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2626,7 +2652,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2641,7 +2667,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2656,7 +2682,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2679,7 +2705,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2694,7 +2720,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2709,7 +2735,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2732,7 +2758,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2747,7 +2773,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg3)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2762,7 +2788,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2786,7 +2812,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2801,7 +2827,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2816,7 +2842,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2839,7 +2865,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2854,7 +2880,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2869,7 +2895,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2892,7 +2918,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2907,7 +2933,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg3)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2922,7 +2948,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2945,7 +2971,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_4}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -2962,7 +2988,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                   child: Text(
                                 '${money.format(dg4)}',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
+                                    color: Colors.black, fontSize: 16),
                               )),
                             ),
                           ],
@@ -2980,7 +3006,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                   child: Text(
                                 '${tt_4}',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
+                                    color: Colors.black, fontSize: 16),
                               )),
                             ),
                           ],
@@ -2995,7 +3021,20 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
             ],
           ],
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -3009,42 +3048,42 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                       child: Container(
                           child: Text(
                         'Tiền nước:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế TN(5%):',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí nước thải:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Chỉ số mới',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế NT(10%):',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí môi trường:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                   ],
@@ -3060,42 +3099,42 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         child: Container(
                             child: Text(
                           '${tienNuoc ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueTN ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                     ],
@@ -3105,7 +3144,20 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
             ],
           ),
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -3122,7 +3174,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            fontSize: 17),
                       )),
                     ),
                   ],
@@ -3139,7 +3191,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            fontSize: 17),
                       )),
                     ),
                   ],
@@ -3155,42 +3207,42 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
               padding: const EdgeInsets.only(top: 20),
               child: Text(
                 'Bằng chữ: ${ConvertTienSangChu.Convert_NumtoText(double.parse(tongTien).toInt().toString())}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
             Text(
               'Có khoán thêm: 0 m3',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
             Text('Quý khách thanh toán tại văn phòng Công ty',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                 )),
             Text(
               'Nộp chậm sẽ bị phạt Nộp chậm theo quy định. Nếu không thanh toán buộc lòng chúng tôi phải ngưng cấp nước theo quy định.',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'NV: ${hoTenNV}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'SĐT: ${sdtNV}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Link: http://nuocsachhaugiang.com.vn',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
                 'Cảm ơn Quý khách hàng!',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
           ],
@@ -3210,18 +3262,18 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
               '${TENCTY}',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             Text(
               '${DIACHICTY}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             Text(
               'Hotline: ${HOTLINE}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             Padding(
@@ -3230,14 +3282,14 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                 'BIÊN NHẬN THANH TOÁN TIỀN NƯỚC KỲ ${KY}',
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
             ),
             Text(
               'Ngày ${TIME}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
               textAlign: TextAlign.center,
             ),
           ],
@@ -3249,28 +3301,41 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
               padding: const EdgeInsets.only(top: 20),
               child: Text(
                 'MÃ KH: ${DANH_BO}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
             Text(
               'Tên KH: ${TEN_KH}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Địa chỉ: ${DIACHI}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'SĐT: ${SDT}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Ngày ghi: ${NGAYGHI}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
           ],
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -3286,7 +3351,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         'CS Cũ',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -3305,7 +3370,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                           'CS Mới',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -3325,7 +3390,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                           'M3TT',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -3351,7 +3416,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         '${CSC}',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -3370,7 +3435,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                           '${CSM}',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -3390,7 +3455,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                           '${mtt1}',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),
@@ -3401,7 +3466,20 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
             ],
           ),
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -3417,7 +3495,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         'M3',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -3434,7 +3512,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         'Đơn Giá',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -3451,7 +3529,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         'Thành tiền',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 17,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold),
                       )),
                     ),
@@ -3478,7 +3556,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3493,7 +3571,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3508,7 +3586,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '0',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3532,7 +3610,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3547,7 +3625,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3562,7 +3640,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3586,7 +3664,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3601,7 +3679,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3616,7 +3694,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3639,7 +3717,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3654,7 +3732,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3669,7 +3747,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3693,7 +3771,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3708,7 +3786,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3723,7 +3801,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3746,7 +3824,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3761,7 +3839,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3776,7 +3854,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3799,7 +3877,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3814,7 +3892,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg3)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3829,7 +3907,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3853,7 +3931,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3868,7 +3946,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg1)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3883,7 +3961,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_1}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3906,7 +3984,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3921,7 +3999,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg2)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3936,7 +4014,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_2}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3959,7 +4037,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3974,7 +4052,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${money.format(dg3)}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -3989,7 +4067,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${tt_3}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -4012,7 +4090,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                 child: Text(
                               '${m3_4}',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                                  TextStyle(color: Colors.black, fontSize: 16),
                             )),
                           ),
                         ],
@@ -4029,7 +4107,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                   child: Text(
                                 '${money.format(dg4)}',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
+                                    color: Colors.black, fontSize: 16),
                               )),
                             ),
                           ],
@@ -4047,7 +4125,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                                   child: Text(
                                 '${tt_4}',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
+                                    color: Colors.black, fontSize: 16),
                               )),
                             ),
                           ],
@@ -4062,7 +4140,20 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
             ],
           ],
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -4076,42 +4167,42 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                       child: Container(
                           child: Text(
                         'Tiền nước:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế TN(5%):',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí nước thải:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Chỉ số mới',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Thuế NT(10%):',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                     SizedBox(
                       child: Container(
                           child: Text(
                         'Phí môi trường:',
-                        style: TextStyle(color: Colors.black, fontSize: 19),
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                       )),
                     ),
                   ],
@@ -4127,42 +4218,42 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         child: Container(
                             child: Text(
                           '${tienNuoc ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueTN ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                       SizedBox(
                         child: Container(
                             child: Text(
                           '${thueBao ?? ""}',
-                          style: TextStyle(color: Colors.black, fontSize: 19),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         )),
                       ),
                     ],
@@ -4172,7 +4263,20 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
             ],
           ),
         ),
-        Text('-------------------------------------'),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Container(
+            child: const Center(
+              child: Text(
+                '',
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
+            height: 1,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 5),
           child: Row(
@@ -4189,7 +4293,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            fontSize: 17),
                       )),
                     ),
                   ],
@@ -4206,7 +4310,7 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            fontSize: 17),
                       )),
                     ),
                   ],
@@ -4222,33 +4326,33 @@ class _TTKH_DaGhiState extends State<TTKH_DaGhi> {
               padding: const EdgeInsets.only(top: 20),
               child: Text(
                 'Bằng chữ: ${ConvertTienSangChu.Convert_NumtoText(double.parse(tongTien).toInt().toString())}',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
             Text(
               'Có khoán thêm: 0 m3',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
             Text(
               'NV: ${hoTenNV}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'SĐT: ${sdtNV}',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
               'Link: http://nuocsachhaugiang.com.vn',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
                 'Cảm ơn Quý khách hàng!',
-                style: TextStyle(color: Colors.black, fontSize: 20),
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
           ],

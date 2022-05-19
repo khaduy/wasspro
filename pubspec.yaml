@@ -48,6 +48,7 @@ dependencies:
   fluttertoast: ^8.0.9
   json_diff: ^0.2.0
   app_tracking_transparency: ^2.0.2+4
+  permission_handler: ^9.2.0
   
 dev_dependencies:
   flutter_test:
